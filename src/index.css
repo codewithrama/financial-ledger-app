@@ -1,0 +1,27 @@
+:root {
+    --primary-color: #4F46E5;
+    --primary-hover: #4338CA;
+    --neutral-color: #ffffff;
+    --secondary-color: #10B981;
+    --Teritary-color: #EF4444;
+    --bg-soft: #f7f9fb;
+    --sidebar-grey: #DEE4E9;
+    --text-main: #2c3437;
+    --text-muted: #596064;
+    --font-family: 'Manrope', sans-serif;
+    --radius: 12px;
+    --shadow-sm: 0 4px 6px rgba(44, 52, 55, 0.04);
+    --shadow-md: 0 20px 40px rgba(44, 52, 55, 0.06);
+}
+
+html,
+body {
+    min-height: 100vh;
+}
+
+body {
+    background-color: var(--bg-soft);
+    font-family: var(--font-family);
+    color: var(--text-main);
+    overflow-x: hidden;
+}

@@ -1,0 +1,194 @@
+.pageContainer {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.mainContent {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.signupCard {
+    background-color: var(--neutral-color);
+    padding: 3rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+    width: 100%;
+    max-width: 800px;
+    /* Wider for the two-column layout */
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+}
+
+.signupLeftSide {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    background-color: var(--sidebar-grey);
+    padding: 3rem;
+    border-radius: var(--radius);
+    max-width: 400px;
+}
+
+.signupEthereal h2 {
+    font-size: 32px;
+    font-weight: 800;
+    margin: 0 0 0.5rem 0;
+    letter-spacing: -0.02em;
+}
+
+.signupEthereal p {
+    font-size: 16px;
+    margin: 0;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+.signupCardImg {
+    margin-top: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.signupCardImg:hover {
+    transform: translateY(-5px);
+}
+
+.signupCardImg img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+    background-color: transparent;
+    filter: drop-shadow(0 10px 20px rgba(79, 70, 229, 0.1));
+}
+
+.signupRightSide {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 3rem;
+    gap: 2rem;
+    max-width: 400px;
+
+}
+
+.signupForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.signupForm label {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-muted);
+}
+
+.input {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-family: var(--font-family);
+    font-size: 16px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background: #fff;
+}
+
+.signupForm input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.passwordField {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.inputWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+.inputWrapper input {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    padding-right: 3rem;
+    margin: 0;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-family: var(--font-family);
+    font-size: 16px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background: #fff;
+    box-sizing: border-box;
+}
+
+.eyeIcon {
+    position: absolute;
+    right: 1rem;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.eyeIcon:hover {
+    color: var(--primary-color);
+}
+
+.signupForm button {
+    padding: 1rem;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--primary-color);
+    color: white;
+    font-family: var(--font-family);
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    margin-top: 1rem;
+}
+
+.signupForm button:hover {
+    background-color: var(--primary-hover);
+}
+
+.signupForm button:active {
+    transform: scale(0.98);
+}
+
+span {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+/* Responsive adjustment */
+@media (max-width: 768px) {
+    .signupCard {
+        flex-direction: column;
+        padding: 1.5rem;
+        max-width: 450px;
+    }
+
+    .signupLeftSide {
+        padding: 2rem;
+    }
+}

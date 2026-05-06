@@ -1,0 +1,10 @@
+:root {
+    --primary-color: #4F46E5;
+    --primary-hover: #4338CA;
+    --text-main: #2c3437;
+    --text-muted: #596064;
+    --font-family: 'Manrope', sans-serif;
+    --radius: 24px;
+    --glass-bg: rgba(255, 255, 255, 0.75);
+    --glass-border: rgba(255, 255, 255, 0.4);
+}
