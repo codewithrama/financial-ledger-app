@@ -1,0 +1,353 @@
+
+
+:root {
+  --primary-color: #4F46E5;
+  --primary-hover: #4338CA;
+  --text-main: #2c3437;
+  --text-muted: #596064;
+  --bg-soft: #f7f9fb;
+  --font-family: 'Manrope', sans-serif;
+  --radius-lg: 24px;
+  --radius-md: 12px;
+}
+
+.onBoardingContainer {
+  min-height: 100vh;
+  background-color: var(--bg-soft);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  font-family: var(--font-family);
+  color: var(--text-main);
+  background-image: radial-gradient(circle at 50% 50%, rgba(79, 70, 229, 0.03) 0%, transparent 70%);
+}
+
+.Lock-Logo {
+  background-color: rgba(79, 70, 229, 0.1);
+  color: var(--primary-color);
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+}
+
+.onBoardingText {
+  text-align: center;
+  max-width: 600px;
+  margin-bottom: 3rem;
+}
+
+.onBoardingText h3 {
+  font-size: 48px;
+  font-weight: 800;
+  margin: 0 0 1rem 0;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.onBoardingText p {
+  font-size: 18px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.onBoardingCard {
+  background: white;
+  padding: 4rem;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.03);
+  width: 100%;
+  max-width: 540px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.onBoardingCard > div:first-child p {
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.onBoardingCard > div:first-child {
+  font-size: 64px;
+  font-weight: 300;
+  color: #cbd5e1; /* Light grey for the symbol and placeholder */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.input-field {
+  color: #e2e8f0; /* Matches the visual design's light input state */
+}
+
+.infoBadge {
+  background-color: #f1f5f9;
+  border-left: 4px solid var(--primary-color);
+  padding: 1.5rem 2rem;
+  border-radius: 8px;
+  text-align: left;
+}
+
+.infoBadge h3 {
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+  color: var(--text-main);
+}
+
+.infoBadge p {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.onBoardingButton button {
+  width: 100%;
+  padding: 1.125rem;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 10px 20px rgba(79, 70, 229, 0.2);
+}
+
+.onBoardingButton button:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 15px 25px rgba(79, 70, 229, 0.25);
+}
+
+.incomeWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.dollar {
+  font-size: 4rem;
+  color: #c0c6d4;
+}
+
+.incomeInput {
+  width: 180px;
+  border: none;
+  outline: none;
+  background: transparent;
+
+  font-size: 5rem;
+  font-weight: bold;
+  color: #4f46e5;
+
+  text-align: left;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .onBoardingText h3 {
+    font-size: 32px;
+  }
+  .onBoardingCard {
+    padding: 2.5rem;
+  }
+}
+
+
+
+:root {
+  --primary-color: #4F46E5;
+  --primary-hover: #4338CA;
+  --text-main: #2c3437;
+  --text-muted: #596064;
+  --bg-soft: #f7f9fb;
+  --font-family: 'Manrope', sans-serif;
+  --radius-lg: 24px;
+  --radius-md: 12px;
+}
+
+.onBoardingContainer {
+  min-height: 100vh;
+  background-color: var(--bg-soft);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  font-family: var(--font-family);
+  color: var(--text-main);
+  background-image: radial-gradient(circle at 50% 50%, rgba(79, 70, 229, 0.03) 0%, transparent 70%);
+}
+
+.Lock-Logo {
+  background-color: rgba(79, 70, 229, 0.1);
+  color: var(--primary-color);
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+}
+
+.onBoardingText {
+  text-align: center;
+  max-width: 600px;
+  margin-bottom: 3rem;
+}
+
+.onBoardingText h3 {
+  font-size: 48px;
+  font-weight: 800;
+  margin: 0 0 1rem 0;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.onBoardingText p {
+  font-size: 18px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.onBoardingCard {
+  background: white;
+  padding: 4rem;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.03);
+  width: 100%;
+  max-width: 540px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.onBoardingCard > div:first-child p {
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.onBoardingCard > div:first-child {
+  font-size: 64px;
+  font-weight: 300;
+  color: #cbd5e1; /* Light grey for the symbol and placeholder */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.input-field {
+  color: #e2e8f0; /* Matches the visual design's light input state */
+}
+
+.infoBadge {
+  background-color: #f1f5f9;
+  border-left: 4px solid var(--primary-color);
+  padding: 1.5rem 2rem;
+  border-radius: 8px;
+  text-align: left;
+}
+
+.infoBadge h3 {
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+  color: var(--text-main);
+}
+
+.infoBadge p {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.onBoardingButton button {
+  width: 100%;
+  padding: 1.125rem;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 10px 20px rgba(79, 70, 229, 0.2);
+}
+
+.onBoardingButton button:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 15px 25px rgba(79, 70, 229, 0.25);
+}
+
+.incomeWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.dollar {
+  font-size: 4rem;
+  color: #c0c6d4;
+}
+
+.incomeInput {
+  width: 180px;
+  border: none;
+  outline: none;
+  background: transparent;
+
+  font-size: 5rem;
+  font-weight: bold;
+  color: #4f46e5;
+
+  text-align: left;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .onBoardingText h3 {
+    font-size: 32px;
+  }
+  .onBoardingCard {
+    padding: 2.5rem;
+  }
+}

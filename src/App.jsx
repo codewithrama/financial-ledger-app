@@ -1,11 +1,26 @@
 import Login from "./pages/Login";
+import OnBoarding from "./pages/OnBoarding";
 import Signup from "./pages/Signup";
+import PageNotFound from "./components/PageNotFOund";
+import { BrowserRouter ,Route,Routes } from "react-router-dom";
+import AppContextProvider from "./context/AppContextProvider";
+import Dashboard from "./pages/Dashboard";
 
 export default function App() {
   return (
     <div className="App">
-      <Signup />
-      <Login />
+      <BrowserRouter>
+      <Routes>
+        <Route path = '/signup' element = {<Signup />} />
+        <Route path = '/' element = {<Login/>}/>
+
+        
+          <Route path="/onBoarding" element = {<AppContextProvider><OnBoarding/> </AppContextProvider>}/>
+          <Route path="/dashboard" element ={<AppContextProvider><Dashboard/></AppContextProvider>}/>
+        
+        <Route path="*" element = {<PageNotFound/>}/>
+      </Routes>
+      </BrowserRouter>
     </div>
   );
 }

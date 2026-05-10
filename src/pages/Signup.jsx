@@ -3,9 +3,11 @@ import cardImage from "../assets/3dCard 2.png";
 import { React, useState } from "react";
 import styles from "./Signup.module.css";
 import { Eye, EyeOff } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
+  const Navigate = useNavigate();
   return (
     <div className={styles.pageContainer}>
       <main className={styles.mainContent}>
@@ -71,10 +73,10 @@ export default function Signup() {
                 </p>
               </div>
 
-              <button type="submit">Create Account</button>
+              <button type="submit" onClick={()=> Navigate('/onBoarding')}>Create Account</button>
             </form>
             <p>
-              Already have an account ? <span>Login</span>
+              Already have an account ? <span onClick={()=> Navigate('/')}>Login</span>
             </p>
           </div>
         </div>
