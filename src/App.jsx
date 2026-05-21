@@ -1,7 +1,7 @@
 import Login from "./pages/Login";
 import OnBoarding from "./pages/OnBoarding";
 import Signup from "./pages/Signup";
-import PageNotFound from "./components/PageNotFOund";
+import PageNotFound from "./components/PageNotFound";
 import { BrowserRouter ,Route,Routes } from "react-router-dom";
 import AppContextProvider from "./context/AppContextProvider";
 import Dashboard from "./pages/Dashboard";

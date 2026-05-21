@@ -1,5 +1,15 @@
+import { Bell, SearchIcon } from "lucide-react";
+
 export default function Header(){
     return(
-        <h1>Header</h1>
+        <>
+        <div className="searchInput">
+            <SearchIcon/> 
+            <input type='text' placeholder= "Search transaction..."/>   
+        </div>
+        <div className="notification">
+            <Bell/>
+        </div>
+        </>
     )
 }
