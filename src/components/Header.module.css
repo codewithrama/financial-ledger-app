@@ -1,0 +1,106 @@
+/* 
+   Ethereal Ledger - Header CSS
+   Matched to React JSX structure: Search Input & Notification Bell
+*/
+
+:root {
+    --primary-color: #4F46E5;
+    --text-main: #2c3437;
+    --text-muted: #596064;
+    --bg-input: #f1f5f9;
+    --font-family: 'Manrope', sans-serif;
+    --radius-full: 9999px;
+    --shadow-sm: 0px 4px 12px rgba(44, 52, 55, 0.04);
+}
+
+/* 
+   Note: Since the JSX uses a Fragment (<>), 
+   this CSS assumes these elements are contained 
+   within a header or flex container in your layout.
+*/
+
+.searchInput {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background-color: var(--bg-input);
+    padding: 0.75rem 1.25rem;
+    border-radius: var(--radius-full);
+    width: 100%;
+    max-width: 400px;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.searchInput:focus-within {
+    background-color: white;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+}
+
+.searchInput svg {
+    color: var(--text-muted);
+    width: 18px;
+    height: 18px;
+}
+
+.searchInput input {
+    border: none;
+    background: transparent;
+    outline: none;
+    font-family: var(--font-family);
+    font-size: 14px;
+    color: var(--text-main);
+    width: 100%;
+}
+
+.searchInput input::placeholder {
+    color: var(--text-muted);
+    opacity: 0.7;
+}
+
+.notification {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.notification:hover {
+    background-color: rgba(79, 70, 229, 0.05);
+    color: var(--primary-color);
+}
+
+.notification svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Optional: Notification dot */
+.notification::after {
+    content: '';
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 8px;
+    height: 8px;
+    background-color: #ef4444;
+    /* Red dot for alerts */
+    border: 2px solid white;
+    border-radius: 50%;
+}
+
+/* 
+   Responsive: Adjust width for smaller screens 
+*/
+@media (max-width: 768px) {
+    .searchInput {
+        max-width: 200px;
+    }
+}

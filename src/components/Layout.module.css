@@ -1,0 +1,96 @@
+/* 
+   Ethereal Ledger - App Layout CSS 
+   Structures the main grid: Sidebar, Header, and Page Content
+*/
+
+:root {
+    --sidebar-width: 260px;
+    --header-height: 80px;
+    --bg-app: #f7f9fb;
+    --font-family: 'Manrope', sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-app);
+    font-family: var(--font-family);
+}
+
+.appContainer {
+    display: grid;
+    grid-template-areas:
+        "sidebar header"
+        "sidebar main";
+    grid-template-columns: var(--sidebar-width) 1fr;
+    grid-template-rows: var(--header-height) 1fr;
+    min-height: 100vh;
+}
+
+.appSideBar {
+    grid-area: sidebar;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    z-index: 100;
+}
+
+.appHeader {
+    grid-area: header;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2.5rem;
+    margin-left: 40px;
+    background-color: rgba(247, 249, 251, 0.8);
+    backdrop-filter: blur(12px);
+    position: sticky;
+    top: 0;
+    z-index: 90;
+    /* Optional: subtle border to match sidebar */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.appPages {
+    grid-area: main;
+    padding: 2.5rem;
+    margin-left: 30px;
+    overflow-y: auto;
+    background-color: var(--bg-app);
+}
+
+/* 
+   Responsive: Handle smaller screens 
+   Matches the sidebar's 80px collapsed state
+*/
+@media (max-width: 1024px) {
+    .appContainer {
+        grid-template-columns: 80px 1fr;
+    }
+
+    .appHeader {
+        padding: 0 1.5rem;
+    }
+
+    .appPages {
+        padding: 1.5rem;
+    }
+}
+
+/* 
+   Mobile: Stack layout or hide sidebar 
+*/
+@media (max-width: 640px) {
+    .appContainer {
+        grid-template-areas:
+            "header"
+            "main";
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+    }
+
+    .appSideBar {
+        display: none;
+        /* Usually handled with a mobile hamburger menu */
+    }
+}

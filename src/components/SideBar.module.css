@@ -1,0 +1,112 @@
+/* 
+   Ethereal Ledger - Sidebar CSS (React Module Compatible)
+   Matched to user JSX structure and class names
+*/
+
+:root {
+    --primary-color: #4F46E5;
+    --primary-hover: #4338CA;
+    --text-main: #2c3437;
+    --text-muted: #596064;
+    --bg-sidebar: #f8fafc;
+    --font-family: 'Manrope', sans-serif;
+    --radius-md: 12px;
+}
+
+.sideBar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 260px;
+    height: 100vh;
+    background-color: var(--bg-sidebar);
+    border-right: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    padding: 2.5rem 1.5rem;
+    z-index: 50;
+    font-family: var(--font-family);
+}
+
+.sideBar h2 {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--primary-hover);
+    font-weight: bold;
+    letter-spacing: -0.02em;
+    margin: 0 0 0.25rem 0.5rem;
+}
+
+.sideBar p {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    color: var(--text-muted);
+    opacity: 0.8;
+    margin: 0 0 3.5rem 0.5rem;
+}
+
+.sideBar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.sideBar li {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.875rem 1rem;
+    border-radius: var(--radius-md);
+    color: var(--text-muted);
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.sideBar li:hover {
+    background-color: rgba(79, 70, 229, 0.05);
+    color: var(--primary-color);
+}
+
+/* Logic for active state if handled via parent class or specific class */
+.sideBar li.active {
+    background-color: white;
+    color: var(--primary-color);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.08);
+}
+
+.sideBar li svg {
+    width: 20px;
+    height: 20px;
+    opacity: 0.7;
+}
+
+.sideBar li:hover svg {
+    opacity: 1;
+}
+
+/* Responsive adjustment */
+@media (max-width: 1024px) {
+    .sideBar {
+        width: 80px;
+        padding: 2rem 0.75rem;
+        align-items: center;
+    }
+
+    .sideBar h2,
+    .sideBar p,
+    .sideBar li span {
+        display: none;
+    }
+
+    .sideBar li {
+        justify-content: center;
+        padding: 1rem;
+    }
+}
