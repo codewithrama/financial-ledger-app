@@ -20,8 +20,7 @@ body {
 }
 
 body {
-    background-color: var(--bg-soft);
     font-family: var(--font-family);
-    color: var(--text-main);
+    color: var(--bg-soft);
     overflow-x: hidden;
 }

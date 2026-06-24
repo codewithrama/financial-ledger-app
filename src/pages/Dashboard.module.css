@@ -1,302 +1,322 @@
-/* 
-   Ethereal Ledger - Dashboard CSS 
-   Matched to React JSX structure and class names
-*/
-
-:root {
-    --primary-color: #4F46E5;
-    --primary-hover: #4338CA;
-    --text-main: #2c3437;
-    --text-muted: #596064;
-    --bg-card: #ffffff;
-    --font-family: 'Manrope', sans-serif;
-    --radius-lg: 24px;
-    --radius-md: 16px;
-    --shadow-sm: 0 4px 12px rgba(44, 52, 55, 0.04);
-    --shadow-md: 0 20px 40px rgba(44, 52, 55, 0.06);
-}
-
-/* Container for the dashboard content inside the Layout's <main> */
-.appPages {
-    display: flex;
-    flex-direction: column;
-    gap: 2.5rem;
-}
-
-/* Top Actions Bar */
 .dashboardTopActions {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    gap: 2rem;
+    align-items: center;
+    margin-bottom: 2rem;
 }
 
 .dashboardHeadings h2 {
-    font-size: 28px;
-    font-weight: 800;
-    margin: 0 0 0.5rem 0;
-    letter-spacing: -0.02em;
+    font-size: 1.8rem;
+    margin-bottom: 0.3rem;
+    color: #0F172A;
 }
 
 .dashboardHeadings p {
-    font-size: 14px;
-    color: var(--text-muted);
-    margin-bottom: 25px;
-}
-
-.dashboardTopActions>div:not(.dashboardHeadings) {
-    display: flex;
-    gap: 2rem;
+    color: #64748B;
+    font-size: 0.9rem;
 }
 
 .exportReport button {
-    padding: 0.75rem 1.5rem;
-    background: var(--primary-hover);
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    font-family: var(--font-family);
-    font-weight: 700;
-    font-size: 14px;
-    color: white;
-    margin-left: 650px;
+    border: 1px solid #E2E8F0;
+    background: white;
+    padding: 10px 18px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.exportReport button:hover {
-    background-color: var(--primary-hover);
-    transform: translateY(-1px);
-    box-shadow: 0 12px 20px rgba(79, 70, 229, 0.2);
+    color: #0F172A;
 }
 
 .addTransaction button {
-    padding: 0.75rem 1.5rem;
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 12px;
-    font-family: var(--font-family);
-    font-weight: 700;
-    font-size: 14px;
-    cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    transition: all 0.2s ease;
-    box-shadow: 0 8px 16px rgba(79, 70, 229, 0.15);
+    gap: 6px;
+    border: none;
+    background: #6366F1;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
 }
 
-.addTransaction button:hover {
-    background-color: var(--primary-hover);
-    transform: translateY(-1px);
-    box-shadow: 0 12px 20px rgba(79, 70, 229, 0.2);
-}
+/* KPI CARDS */
 
-.addTransaction button svg {
-    width: 18px;
-    height: 18px;
-}
-
-/* KPI Cards Grid */
 .kpiCards {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
+    grid-template-columns: 1.3fr 1fr 1fr;
+    gap: 1.2rem;
+    margin-bottom: 2rem;
 }
 
 .walletCard,
 .totalIncomeCard,
 .totalExpenses {
-    background: var(--bg-card);
-    padding: 2rem;
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-sm);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 160px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
 }
 
-.walletCard:hover,
-.totalIncomeCard:hover,
-.totalExpenses:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-md);
-}
+/* Wallet Card */
 
 .walletCard {
-    background: linear-gradient(135deg, #4f46e5, #6366f1);
+    background: linear-gradient(135deg, #6366F1, #8B5CF6);
     color: white;
 }
+
+
 
 .walletCardTop {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    font-size: 14px;
-    font-weight: 700;
-    opacity: 0.9;
+    gap: 8px;
+    margin-bottom: 1.2rem;
 }
 
-.walletCardTop svg {
-    width: 24px;
-    height: 24px;
+.walletAmount h1 {
+    font-size: 0.9rem;
+    font-weight: 400;
 }
 
 .walletAmount h2 {
-    font-size: 36px;
-    font-weight: 800;
-    margin: 1.5rem 0 0 0;
-    letter-spacing: -0.02em;
+    margin-top: 0.6rem;
+    font-size: 2rem;
 }
 
+.walletCardTop span {
+    color: white;
+}
+
+/* Income Card */
+
 .totalIncomeCard {
-    border-left: 4px solid #10b981;
-    /* Success Green */
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background: #ECFDF3;
+    color: #0F172A;
 }
 
 .totalIncomeCard svg {
-    color: #10b981;
-    width: 32px;
-    height: 32px;
-    margin-bottom: 1rem;
+    color: #10B981;
 }
 
 .totalIncomeCard h3 {
-    font-size: 32px;
-    font-weight: 800;
-    margin: 0;
-    letter-spacing: -0.02em;
+    font-size: 2rem;
 }
+
+.totalIncomeCard p {
+    color: #64748B;
+}
+
+/* Expense Card */
 
 .totalExpenses {
-    border-left: 4px solid #f43f5e;
-    /* Rose/Red */
-}
-
-.totalExpenses svg {
-    color: #f43f5e;
-    width: 32px;
-    height: 32px;
-    margin-bottom: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background: #FEF2F2;
+    color: #0F172A;
 }
 
 .totalExpenses h3 {
-    font-size: 32px;
-    font-weight: 800;
-    margin: 0 0 1rem 0;
-    letter-spacing: -0.02em;
+    font-size: 2rem;
 }
+
+.totalExpenses svg {
+    color: #EF4444;
+}
+
 
 .totalExpenses p {
-    font-size: 13px;
-    color: var(--text-muted);
-    margin: 0.75rem 0 0 0;
+    color: #64748B;
+    font-size: 1rem;
 }
 
-/* Spending By Category Section */
+
+/* PROGRESS BARS */
+
+.progressFood,
+.progressTravelling,
+.progressRecipt,
+.totalIncome,
+.totalExpense {
+    width: 100%;
+    height: 8px;
+    appearance: none;
+    -webkit-appearance: none;
+    border: none;
+}
+
+/* Track */
+
+.progressFood::-webkit-progress-bar,
+.progressTravelling::-webkit-progress-bar,
+.progressRecipt::-webkit-progress-bar,
+.totalIncome::-webkit-progress-bar,
+.totalExpense::-webkit-progress-bar {
+    background: #E5E7EB;
+    border-radius: 999px;
+}
+
+/* Food */
+
+.progressFood::-webkit-progress-value {
+    background: #F97316;
+    border-radius: 999px;
+}
+
+.progressFood::-moz-progress-bar {
+    background: #F97316;
+}
+
+/* Travel */
+
+.progressTravelling::-webkit-progress-value {
+    background: #3B82F6;
+    border-radius: 999px;
+}
+
+.progressTravelling::-moz-progress-bar {
+    background: #3B82F6;
+}
+
+/* Bills */
+
+.progressRecipt::-webkit-progress-value {
+    background: #8B5CF6;
+    border-radius: 999px;
+}
+
+.progressRecipt::-moz-progress-bar {
+    background: #8B5CF6;
+}
+
+/* Income */
+
+.totalIncome::-webkit-progress-value {
+    background: #10B981;
+    border-radius: 999px;
+}
+
+.totalIncome::-moz-progress-bar {
+    background: #10B981;
+}
+
+.totalExpense::-webkit-progress-value {
+    background: #e60e0a;
+    border-radius: 999px;
+}
+
+.totalIncome::-moz-progress-bar {
+    background: #e60e0a;
+}
+
+/* BOTTOM SECTION */
+
+.dashboardBottom {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 1.5rem;
+}
+
+/* Spending Card */
+
 .spendingByCategoryCard {
-    background: var(--bg-card);
-    padding: 2.5rem;
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-sm);
-    position: relative;
-    margin: 20px;
+    background: white;
+    border: 1px solid #E2E8F0;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
 }
 
-.spendingByCategoryCard .viewAll {
-    position: absolute;
-    top: 2.5rem;
-    right: 2.5rem;
-    font-size: 13px;
-    font-weight: 800;
-    color: var(--primary-color);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+.viewAll {
+    text-align: right;
+    color: #6366F1;
     cursor: pointer;
+    margin-bottom: 1rem;
 }
 
 .cardItem {
-    margin-bottom: 2rem;
-}
-
-.cardItem:last-child {
-    margin-bottom: 0;
+    margin-bottom: 1.5rem;
 }
 
 .cardItem label {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    font-size: 15px;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    color: var(--text-main);
+    gap: 8px;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #0F172A;
 }
 
-.cardItem label svg {
-    width: 20px;
-    height: 20px;
-    color: var(--primary-color);
-}
-
-/* Progress Bar Styling */
-progress,
-input[type="progress"] {
+.cardItem progress {
     width: 100%;
     height: 8px;
-    border-radius: 999px;
-    appearance: none;
-    -webkit-appearance: none;
-    border: none;
-    background-color: #f1f5f9;
-    overflow: hidden;
 }
 
-progress::-webkit-progress-bar {
-    background-color: #f1f5f9;
-    border-radius: 999px;
-}
+/* Transactions */
 
-progress::-webkit-progress-value {
-    background: linear-gradient(90deg, #4f46e5, #818cf8);
-    border-radius: 999px;
-}
-
-progress::-moz-progress-bar {
-    background: linear-gradient(90deg, #4f46e5, #818cf8);
-    border-radius: 999px;
-}
-
-/* Total Expenses Input "Progress" fallback */
-input[type="progress"] {
-    display: block;
-}
-
-/* Recent Transactions Placeholder */
 .recentTransactionsCard {
-    background: var(--bg-card);
-    padding: 2.5rem;
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-sm);
-    min-height: 200px;
+    background: white;
+    border: 1px solid #E2E8F0;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
 }
 
-/* Responsive Grid */
-@media (max-width: 1200px) {
+.topActions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.Icons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    border-bottom: 1px solid #E2E8F0;
+    color: #64748B;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 14px;
+}
+
+tbody tr {
+    border-bottom: 1px solid #F1F5F9;
+}
+
+tbody tr:hover {
+    background: #F8FAFC;
+}
+
+tbody tr:last-child {
+    border-bottom: none;
+}
+
+/* Responsive */
+
+@media (max-width: 1024px) {
     .kpiCards {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
     }
-}
 
-@media (max-width: 768px) {
-    .kpiCards {
+    .dashboardBottom {
         grid-template-columns: 1fr;
     }
 
     .dashboardTopActions {
         flex-direction: column;
+        gap: 1rem;
         align-items: flex-start;
     }
 }
