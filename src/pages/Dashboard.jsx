@@ -61,7 +61,7 @@ export default function Dashboard() {
               value={60}
               className={styles.totalExpense}
             ></progress>{" "}
-            <p>Well , within ${2600} your limit</p>
+            <p>Well , within ${income} your limit</p>
           </div>
         </div>
 
