@@ -1,9 +1,11 @@
 import { Lock, MoveRight } from 'lucide-react'
 import styles from './OnBoarding.module.css'
 import useData from '../hooks/useData'
+import { useNavigate } from 'react-router-dom';
 
 export default function OnBoarding() {
     const { income, setIncome } = useData();
+    const navigate = useNavigate();
 
     return (
         <div className={styles.onBoardingContainer}>
@@ -49,7 +51,7 @@ export default function OnBoarding() {
                 </div>
 
                 <div className={styles.onBoardingButton}>
-                    <button>
+                    <button onClick={()=> navigate('/dashboard')}>
                         Confirm and Start <MoveRight />
                     </button>
                 </div>
