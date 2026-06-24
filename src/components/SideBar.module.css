@@ -37,6 +37,34 @@
     margin: 0 0 0.25rem 0.5rem;
 }
 
+.navLink {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    text-decoration: none;
+    color: #666;
+    border-radius: 8px;
+    transition: 0.3s;
+  }
+  
+  .navLink:hover {
+    background-color: #f3f4f6;
+  }
+  
+  .activeLink {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    text-decoration: none;
+    background-color: #2563eb;
+    color: white;
+    border-radius: 8px;
+  }
+
+
+
 .sideBar p {
     font-size: 11px;
     text-transform: uppercase;

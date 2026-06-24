@@ -10,18 +10,24 @@ export default function SideBar() {
       <ul>
         <li>
           {" "}
-          <NavLink to={"/dashboard"}>
+          <NavLink to={"/dashboard"} className={({ isActive }) =>
+    isActive ? styles.activeLink : styles.navLink
+  }>
             <LayoutDashboard /> Dashboard
           </NavLink>
         </li>
         <li>
-          <NavLink to={"/Transaction"}>
+          <NavLink to={"/Transaction"}  className={({ isActive }) =>
+    isActive ? styles.activeLink : styles.navLink
+  }>
             {" "}
             <HandCoins /> Transactions
           </NavLink>
         </li>
         <li>
-          <NavLink to={"/insights"}>
+          <NavLink to={"/insights"}  className={({ isActive }) =>
+    isActive ? styles.activeLink : styles.navLink
+  }>
             {" "}
             <TrendingUp /> Insights
           </NavLink>
