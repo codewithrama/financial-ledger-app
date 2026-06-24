@@ -11,20 +11,22 @@ import Insights from "./pages/Insights";
 export default function App() {
   return (
     <div className="App">
+      <AppContextProvider>
       <BrowserRouter>
       <Routes>
         <Route path = '/signup' element = {<Signup />} />
         <Route path = '/' element = {<Login/>}/>
 
-        
-          <Route path="/onBoarding" element = {<AppContextProvider><OnBoarding/> </AppContextProvider>}/>
-          <Route path="/dashboard" element ={<AppContextProvider><Dashboard/></AppContextProvider>}/>
+          <Route path="/onBoarding" element = {<OnBoarding/> }/>
+          <Route path="/dashboard" element ={<Dashboard/>}/>
           <Route path='/transaction' element = {<Transaction/>}/>
           <Route path='/insights' element = {<Insights/>}/>
         
         <Route path="*" element = {<PageNotFound/>}/>
       </Routes>
       </BrowserRouter>
+      </AppContextProvider>
+
     </div>
   );
 }

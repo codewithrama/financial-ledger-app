@@ -42,14 +42,14 @@ export default function Dashboard() {
             </div>
             <div className={styles.walletAmount}>
               <h1>Target income</h1>
-              <h2>${2600}</h2>
+              <h2>${income}</h2>
             </div>
           </div>
 
           <div className={styles.totalIncomeCard}>
             <ArrowBigDown />
             <h3>Total Income</h3>
-            <progress value={550} max={2600} className={styles.totalIncome} />
+            <progress value={10} max={income} className={styles.totalIncome} />
             <p>30% Target Reached</p>
           </div>
 
@@ -57,7 +57,7 @@ export default function Dashboard() {
             <ArrowBigUp />
             <h3>Total expense</h3>
             <progress
-              max={2600}
+              max={income}
               value={60}
               className={styles.totalExpense}
             ></progress>{" "}
