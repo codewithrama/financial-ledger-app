@@ -4,10 +4,53 @@ import { React, useState } from "react";
 import styles from "./Signup.module.css";
 import { Eye, EyeOff } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import useAuth from '../hooks/useAuth'
+import {toast} from 'react-toastify';
 
 export default function Signup() {
+
   const [showPassword, setShowPassword] = useState(false);
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
+
+  const {formData,setFormData,addUser} = useAuth();
+
+  const handleChange = (e)=> {
+    console.log(e.target.checked
+    )
+    const {name,value,checked} = e.target;
+    console.log(checked)
+    setFormData((form)=> ({
+      ...form,[name]:value || checked
+  }))
+}
+
+async function handleSignup (e){
+    e.preventDefault();
+     if(formData.name.trim() === '' || formData.email.trim() === '' || formData.passWord.trim() === ''){
+      toast.error('Missing fields');
+      return;
+    }
+    if(!formData.terms) {toast.error('Please accept Terms and Conditions'); return}
+
+    const newData = {
+      name : formData.name,
+      email : formData.email,
+      passWord:formData.passWord,
+      id: crypto.randomUUID(),
+      isOnboardingDone:false,
+      terms:true
+    }
+    console.log(newData)
+
+    await addUser(newData)
+    toast.success('Account Created Successfully !')
+    navigate('/onBoarding',{replace:true})
+
+  }
+
+
+
+
   return (
     <div className={styles.pageContainer}>
       <main className={styles.mainContent}>
@@ -29,12 +72,15 @@ export default function Signup() {
             <h3>Create Account</h3>
             <p>Begin your journey toward finanical clarity.</p>
 
-            <form className={styles.signupForm}>
+            <form className={styles.signupForm} onSubmit = {handleSignup}>
               <div className="fullname">
                 <label>Full Name</label>
                 <input
                   type="text"
+                  name ='name'
                   className={styles.input}
+                  value={formData.name}
+                  onChange={handleChange}
                   placeholder="Julian Vellum"
                 />
               </div>
@@ -43,8 +89,12 @@ export default function Signup() {
                 <label>Email Address</label>
                 <input
                   type="email"
+                  name ='email'
                   className={styles.input}
                   placeholder="julian@ledger.com"
+                  value = {formData.email}
+                  onChange={handleChange}
+
                 />
               </div>
               <div className={styles.passwordField}>
@@ -55,6 +105,10 @@ export default function Signup() {
                     type={showPassword ? "text" : "password"}
                     className={styles.input}
                     placeholder="******"
+                    name ='passWord'
+                    value ={formData.password}
+                    onChange={handleChange}
+
                   />
 
                   <span
@@ -68,12 +122,12 @@ export default function Signup() {
 
               <div className="checkbox">
                 <p>
-                  <input type="checkbox" />I agree to the{" "}
+                  <input type="checkbox" value={formData.agree} onChange={handleChange} name ='terms'/>I agree to the{" "}
                   <span>Terms of Service</span> and <span>Privacy Policy.</span>
                 </p>
               </div>
 
-              <button type="submit" onClick={()=> Navigate('/onBoarding')}>Create Account</button>
+              <button type="submit">Create Account</button>
             </form>
             <p>
               Already have an account ? <span onClick={()=> Navigate('/')}>Login</span>
@@ -84,4 +138,5 @@ export default function Signup() {
       <Footer />
     </div>
   );
+
 }

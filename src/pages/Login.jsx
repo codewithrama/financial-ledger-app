@@ -49,7 +49,7 @@ export default function Login() {
         <hr />
         <div className={styles.createAccount}>
           <p>
-            New to the ledger ? <span onClick={()=>Navigate('/signup')}>create an account</span>
+            New to the ledger ? <span onClick={()=>Navigate('/')}>create an account</span>
           </p>
         </div>
       </div>
