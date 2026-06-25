@@ -11,7 +11,7 @@ export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
-  const { formData, setFormData, addUser } = useAuth();
+  const { formData, setFormData, addUser, } = useAuth();
 
   const handleChange = (e) => {
     console.log(e.target.checked);
@@ -42,16 +42,24 @@ export default function Signup() {
       name: formData.name,
       email: formData.email,
       passWord: formData.passWord,
-      id: `Led-${crypto.randomUUID().substring(0, 4)}`,
+      userId: `Led-${crypto.randomUUID().substring(0, 4)}`,
       isOnboardingDone: false,
       terms: true,
       income: null,
+      createdAt:new Date(),
+      lastUpdatedAt:new Date(),
+      active:true
+
     };
     console.log(newData);
 
-    await addUser(newData);
+    const add = await addUser(newData);
+   if(!add){
     toast.success("Account Created Successfully !");
+    if(customer)
     navigate("/onBoarding", { replace: true });
+   }
+    
   }
 
   return (
@@ -138,7 +146,7 @@ export default function Signup() {
             </form>
             <p>
               Already have an account ?{" "}
-              <span onClick={() => navigate("/")}>Login</span>
+              <span onClick={() => navigate("/login")}>Login</span>
             </p>
           </div>
         </div>

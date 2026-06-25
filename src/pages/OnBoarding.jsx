@@ -2,10 +2,28 @@ import { Lock, MoveRight } from 'lucide-react'
 import styles from './OnBoarding.module.css'
 import useData from '../hooks/useData'
 import { useNavigate } from 'react-router-dom';
+import useAuth from '../hooks/useAuth'
+import { toast } from 'react-toastify';
 
 export default function OnBoarding() {
-    const { income, setIncome } = useData();
+    const { income, setIncome} = useData();
+    const {updateUserOnBoarding,customers,currentCustomer} = useAuth();
     const navigate = useNavigate();
+
+  const handleOnBoarding = async function(){
+
+    const fieldsToBeUpdated = {
+        "isOnboardingDone": true,
+        "income":income,
+    }
+
+    console.log('currentCustomer',currentCustomer)
+
+    await updateUserOnBoarding(currentCustomer.id,fieldsToBeUpdated);
+    toast.success('redirecting to Dashboard')
+    navigate('/dashboard')
+
+  }
 
     return (
         <div className={styles.onBoardingContainer}>
@@ -51,7 +69,7 @@ export default function OnBoarding() {
                 </div>
 
                 <div className={styles.onBoardingButton}>
-                    <button onClick={()=> navigate('/dashboard')}>
+                    <button onClick={handleOnBoarding}>
                         Confirm and Start <MoveRight />
                     </button>
                 </div>
