@@ -1,0 +1,14 @@
+{
+  "customers": [
+    {
+      "name": "Rama subramanian",
+      "email": "jack@example.com",
+      "passWord": "qwerty",
+      "id": "hC6Fm15OhsA",
+      "isOnboardingDone": false,
+      "terms": true,
+      "income": null
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
