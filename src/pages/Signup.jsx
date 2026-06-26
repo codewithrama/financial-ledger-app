@@ -11,15 +11,15 @@ export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
-  const { formData, setFormData, addUser, } = useAuth();
+  const { formData, setFormData, addUser } = useAuth();
 
   const handleChange = (e) => {
     console.log(e.target.checked);
-    const { name, value, checked } = e.target;
+    const { name, value, checked, type } = e.target;
     console.log(checked);
     setFormData((form) => ({
       ...form,
-      [name]: value || checked,
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
@@ -46,20 +46,17 @@ export default function Signup() {
       isOnboardingDone: false,
       terms: true,
       income: null,
-      createdAt:new Date(),
-      lastUpdatedAt:new Date(),
-      active:true
-
+      createdAt: new Date(),
+      lastUpdatedAt: new Date(),
+      active: true,
     };
     console.log(newData);
 
     const add = await addUser(newData);
-   if(!add){
-    toast.success("Account Created Successfully !");
-    if(customer)
-    navigate("/onBoarding", { replace: true });
-   }
-    
+    if (!add) {
+      toast.success("Account Created Successfully !");
+      navigate("/onBoarding", { replace: true });
+    }
   }
 
   return (
@@ -133,7 +130,7 @@ export default function Signup() {
                 <p>
                   <input
                     type="checkbox"
-                    value={formData.agree}
+                    value={formData.terms}
                     onChange={handleChange}
                     name="terms"
                   />

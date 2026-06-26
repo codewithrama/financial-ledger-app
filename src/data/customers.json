@@ -2,16 +2,29 @@
   "customers": [
     {
       "name": "Rama subramanian",
-      "email": "rama.ackrock@gmail.com",
-      "passWord": "123",
-      "userId": "Led-e6cc",
+      "email": "ramasubramanian35427@gmail.com",
+      "passWord": "1234",
+      "userId": "Led-1c65",
       "isOnboardingDone": true,
       "terms": true,
-      "income": 500,
-      "createdAt": "2026-06-25T06:34:08.826Z",
-      "lastUpdatedAt": "2026-06-25T06:34:08.826Z",
+      "income": "600",
+      "createdAt": "2026-06-25T17:28:07.056Z",
+      "lastUpdatedAt": "2026-06-25T17:28:07.056Z",
       "active": true,
-      "id": "Gsfi2sr3T0E"
+      "id": "jT-RXGUdoGU"
+    },
+    {
+      "name": "Rama subramanian",
+      "email": "admin@physio.inc",
+      "passWord": "3333w",
+      "userId": "Led-8beb",
+      "isOnboardingDone": true,
+      "terms": true,
+      "income": "5555",
+      "createdAt": "2026-06-25T17:33:33.109Z",
+      "lastUpdatedAt": "2026-06-25T17:33:33.109Z",
+      "active": true,
+      "id": "qRCjFDvz2lo"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

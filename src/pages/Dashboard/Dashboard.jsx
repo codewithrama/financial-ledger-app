@@ -1,4 +1,4 @@
-import Layout from "../components/Layout";
+import Layout from "../../components/Layout";
 import {
   ArrowBigDown,
   ArrowBigUp,
@@ -10,10 +10,11 @@ import {
   Plus,
   Receipt,
 } from "lucide-react";
-import useData from "../hooks/useData";
 import styles from "./Dashboard.module.css";
+import useAuth from "../../hooks/useAuth";
+
 export default function Dashboard() {
-  const { income } = useData();
+  const { currentCustomer } = useAuth();
   return (
     <Layout>
       <div>
@@ -38,30 +39,35 @@ export default function Dashboard() {
           <div className={styles.walletCard}>
             <div className={styles.walletCardTop}>
               <PiggyBankIcon />
-              <span>Primary Wallet</span>
+              <span>$</span>
             </div>
             <div className={styles.walletAmount}>
-              <h1>Target income</h1>
-              <h2>${income}</h2>
+              <h1>Monthly income</h1>
+              <h2>${currentCustomer.income}</h2>
             </div>
           </div>
 
           <div className={styles.totalIncomeCard}>
             <ArrowBigDown />
-            <h3>Total Income</h3>
-            <progress value={10} max={income} className={styles.totalIncome} />
-            <p>30% Target Reached</p>
+            <h3>Remaining Balance</h3>
+
+            <progress
+              value={currentCustomer.income}
+              max={currentCustomer.income}
+              className={styles.totalIncome}
+            />
+            <p>100% Money Remaining</p>
           </div>
 
           <div className={styles.totalExpenses}>
             <ArrowBigUp />
             <h3>Total expense</h3>
             <progress
-              max={income}
-              value={60}
+              max={currentCustomer.income}
+              value={0}
               className={styles.totalExpense}
             ></progress>{" "}
-            <p>Well , within ${income} your limit</p>
+            <p>Well , no expense</p>
           </div>
         </div>
 
@@ -71,14 +77,18 @@ export default function Dashboard() {
             <label>
               <CookingPot /> Food
             </label>
-            <progress max={income} value={30} className={styles.progressFood} />
+            <progress
+              max={currentCustomer.income}
+              value={30}
+              className={styles.progressFood}
+            />
           </div>
           <div className={styles.cardItem}>
             <label>
               <Plane /> Travelling
             </label>
             <progress
-              max={income}
+              max={currentCustomer.income}
               value={20}
               className={styles.progressTravelling}
             />
@@ -88,7 +98,7 @@ export default function Dashboard() {
               <Receipt /> Bills and Utilities
             </label>
             <progress
-              max={income}
+              max={currentCustomer.income}
               value={200}
               className={styles.progressRecipt}
             />
