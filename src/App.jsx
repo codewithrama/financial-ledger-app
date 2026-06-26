@@ -3,9 +3,9 @@ import OnBoarding from "./pages/OnBoarding";
 import Signup from "./pages/Signup";
 import PageNotFound from "./components/PageNotFound";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Dashboard from "./pages/Dashboard";
-import Transaction from "./pages/Transaction";
-import Insights from "./pages/Insights";
+import Dashboard from "./pages/Dashboard/Dashboard";
+import Transaction from "./pages/Transaction/Transaction";
+import Insights from "./pages/insights/Insights";
 import AuthContextProvider from "./context/AuthContextProvider";
 import { ToastContainer, toast } from "react-toastify";
 
@@ -15,7 +15,6 @@ export default function App() {
       <ToastContainer />
 
       <div className="App">
-        {/* <AppContextProvider> */}
         <AuthContextProvider>
           <BrowserRouter>
             <Routes>
@@ -31,7 +30,6 @@ export default function App() {
             </Routes>
           </BrowserRouter>
         </AuthContextProvider>
-        {/* </AppContextProvider> */}
       </div>
     </>
   );

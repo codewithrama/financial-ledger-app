@@ -25,6 +25,19 @@
       "lastUpdatedAt": "2026-06-25T17:33:33.109Z",
       "active": true,
       "id": "qRCjFDvz2lo"
+    },
+    {
+      "name": "Rama subramanian",
+      "email": "rama.ackrock@gmail.com",
+      "passWord": "123",
+      "userId": "Led-467d",
+      "isOnboardingDone": true,
+      "terms": true,
+      "income": "1497",
+      "createdAt": "2026-06-26T05:48:15.812Z",
+      "lastUpdatedAt": "2026-06-26T05:48:15.812Z",
+      "active": true,
+      "id": "gqsD6RlyYHM"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

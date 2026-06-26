@@ -12,9 +12,11 @@ import {
 } from "lucide-react";
 import styles from "./Dashboard.module.css";
 import useAuth from "../../hooks/useAuth";
+import {useNavigate} from 'react-router-dom'
 
 export default function Dashboard() {
   const { currentCustomer } = useAuth();
+  const navigate = useNavigate();
   return (
     <Layout>
       <div>
@@ -29,7 +31,7 @@ export default function Dashboard() {
           </div>
 
           <div className={styles.addTransaction}>
-            <button>
+            <button onClick={()=> navigate('/transaction')}>
               <Plus /> Add Transaction
             </button>
           </div>
