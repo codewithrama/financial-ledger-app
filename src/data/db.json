@@ -1,0 +1,31 @@
+{
+  "transactions": [
+    {
+      "userId": "Led-f420",
+      "TransactionAmount": "1000",
+      "TransactionType": "Expense",
+      "TransactionCategory": "Grocery",
+      "TransactionDescription": "Grocery at DMART",
+      "createdAt": "2026-06-29T08:56:21.463Z",
+      "lastupdatedAt": "2026-06-29T08:56:21.463Z",
+      "active": true,
+      "id": "mI0ktd7VChg"
+    }
+  ],
+  "customers": [
+    {
+      "name": "Rama subramanian",
+      "email": "rama.ackrock@gmail.com",
+      "passWord": "1234",
+      "userId": "Led-f420",
+      "isOnboardingDone": true,
+      "terms": true,
+      "income": "4000",
+      "createdAt": "2026-06-29T08:55:32.512Z",
+      "lastUpdatedAt": "2026-06-29T08:55:32.512Z",
+      "active": true,
+      "id": "vUV85QQzZsA"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

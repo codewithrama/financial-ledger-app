@@ -1,20 +1,53 @@
 import Layout from "../../components/Layout";
 import styles from "./Transaction.module.css";
 import { FilterIcon, CalendarDays, PlusCircle, DownloadIcon } from "lucide-react";
+import useAuth from '../../hooks/useAuth'
+import {useState} from 'react'
 
 export default function Transaction() {
+  const [amount,setAmount] = useState('');
+  const [type,setType] = useState('Expense');
+  const [description,setDescription] = useState('')
+  const [category,setCategory] = useState('Housing')
+
+  const {currentCustomer,addUserTransaction,getTranscation} = useAuth();
+
+  async function handleAddTransaction(e){
+    e.preventDefault();
+      console.log(currentCustomer)
+
+
+ const addNewTransaction = {
+  'userId': currentCustomer.userId,
+  'TransactionAmount':amount,
+  'TransactionType':type,
+  'TransactionCategory':category,
+  'TransactionDescription':description,
+  'createdAt':  new Date(),
+  'lastupdatedAt':new Date(),
+  'active' : true
+  }
+
+  await addUserTransaction(addNewTransaction);
+
+
+  //Resetting states
+  setAmount('');
+  setType('');
+  setCategory('');
+  setDescription('');
+  }
+  
+
+
   return (
-    <Layout>
+    <Layout>dashboard
       <div className={styles.container}>
         {/* Header Section */}
         <div className={styles.headingSection}>
           <div className={styles.titleArea}>
             <h1>Transactions</h1>
             <p>Log and manage your financial movements with precision.</p>
-          </div>
-          <div className={styles.netFlowBadge}>
-            <span className={styles.netFlowLabel}>NET FLOW</span>
-            <span className={styles.netFlowAmount}>+$2,480.00</span>
           </div>
         </div>
 
@@ -24,19 +57,19 @@ export default function Transaction() {
             <h3 className={styles.cardTitle}>
               <PlusCircle size={20} className={styles.iconPurple} /> New Entry
             </h3>
-            <form className={styles.addTransactionForm} onSubmit={(e) => e.preventDefault()}>
+            <form className={styles.addTransactionForm} onSubmit={handleAddTransaction}>
               <div className={styles.formGroup}>
                 <label>AMOUNT</label>
                 <div className={styles.amountInputWrapper}>
                   <span>$</span>
-                  <input type="number" defaultValue="0.00" step="0.01" />
+                  <input type="number"  value={amount} onChange ={(e)=>setAmount(e.target.value)}step="0.01"  placeholder = '0.00'/>
                 </div>
               </div>
 
               <div className={styles.formRow}>
                 <div className={styles.formGroup}>
                   <label>TYPE</label>
-                  <select defaultValue="Expense">
+                  <select value={type} onChange={(e)=> setType(e.target.value)}>
                     <option value="Expense">Expense</option>
                     <option value="Income">Income</option>
                   </select>
@@ -44,7 +77,7 @@ export default function Transaction() {
 
                 <div className={styles.formGroup}>
                   <label>CATEGORY</label>
-                  <select defaultValue="Housing">
+                  <select value ={category} onChange ={(e)=> setCategory(e.target.value)}>
                     <option value="Housing">Housing</option>
                     <option value="Grocery">Grocery</option>
                     <option value="Salary">Salary</option>
@@ -55,7 +88,7 @@ export default function Transaction() {
 
               <div className={styles.formGroup}>
                 <label>DESCRIPTION</label>
-                <textarea placeholder="What was this for?" rows={3} />
+                <textarea placeholder="What was this for?" rows={3} value={description} onChange ={(e)=>setDescription(e.target.value)} />
               </div>
 
               <button type="submit" className={styles.submitBtn}>
@@ -108,44 +141,30 @@ export default function Transaction() {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  {getTranscation.map((tran)=>
+                  <tr key={tran.id}>
                     <td>
                       <div className={styles.descCell}>
                         <div className={styles.avatarBag}>🛍️</div>
                         <div>
-                          <div className={styles.txName}>Whole Foods Market</div>
-                          <div className={styles.txDate}>Oct 24, 2023 • 14:32</div>
+                          <div className={styles.txName}>{tran.TransactionDescription}</div>
+                          <div className={styles.txDate}>{tran.lastupdatedAt}</div>
                         </div>
                       </div>
                     </td>
                     <td>
-                      <span className={`${styles.badge} ${styles.badgeGrocery}`}>GROCERY</span>
+                      <span className={`${styles.badge} ${styles.badgeGrocery}`}>${tran.TransactionCategory}</span>
                     </td>
-                    <td className={styles.typeText}>Expense</td>
-                    <td className={`${styles.amountText} ${styles.negative}`}>-$142.50</td>
+                    <td className={styles.typeText}>{tran.type}</td>
+                    <td className={`${styles.amountText} ${styles.negative}`}>{tran.TransactionAmount}</td>
                   </tr>
-                  <tr>
-                    <td>
-                      <div className={styles.descCell}>
-                        <div className={styles.avatarSalary}>💵</div>
-                        <div>
-                          <div className={styles.txName}>Monthly Salary</div>
-                          <div className={styles.txDate}>Oct 20, 2023 • 09:00</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <span className={`${styles.badge} ${styles.badgeSalary}`}>SALARY</span>
-                    </td>
-                    <td className={styles.typeText}>Income</td>
-                    <td className={`${styles.amountText} ${styles.positive}`}>+$6,400.00</td>
-                  </tr>
+                  )}
                 </tbody>
               </table>
 
               {/* Table Footer / Pagination */}
               <div className={styles.tableFooter}>
-                <span>Showing 1 to 2 of 2 entries</span>
+                <span>Showing 1 to 2 of ${getTransaction.length} entries</span>
                 <div className={styles.pagination}>
                   <button className={styles.pagArrow} disabled>&lt;</button>
                   <button className={`${styles.pagNum} ${styles.pagActive}`}>1</button>

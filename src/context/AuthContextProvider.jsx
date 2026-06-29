@@ -4,6 +4,7 @@ const AuthContext = createContext();
 
 export default function AuthContextProvider({ children }) {
   const [customers, setCustomers] = useState([]);
+  const [transaction,setTransaction] = useState([]);
   const [currentCustomer, setCurrentCustomer] = useState(null);
   const [formData, setFormData] = useState({
     name: "",
@@ -53,6 +54,7 @@ export default function AuthContextProvider({ children }) {
       setCurrentCustomer(res);
     } catch (error) {
       toast.error(error.message);
+      return false
     }
   }
 
@@ -97,6 +99,31 @@ export default function AuthContextProvider({ children }) {
     }
   }
 
+  //Add Transaction Flow
+
+  async function addUserTransaction(transaction) {
+    try {
+      const res = await fetch(`${BASE_URL}/transactions`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(transaction),
+      });
+      const data = await res.json();
+      setTransaction((prev)=> [...prev,data])
+      toast.success('record added successfully')
+     
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
+  //get Transaction flow
+
+  const getTranscation = transaction.filter((trans)=> trans.userId === currentCustomer.userId)
+
+  
+
   return (
     <AuthContext.Provider
       value={{
@@ -106,6 +133,8 @@ export default function AuthContextProvider({ children }) {
         updateUserOnBoarding,
         currentCustomer,
         loginUser,
+        addUserTransaction,
+        getTranscation,
       }}
     >
       {children}
