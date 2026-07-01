@@ -2,22 +2,23 @@ import Layout from "../../components/Layout";
 import styles from "./Transaction.module.css";
 import { FilterIcon, CalendarDays, PlusCircle, DownloadIcon } from "lucide-react";
 import useAuth from '../../hooks/useAuth'
-import {useState} from 'react'
+import {useState,useEffect} from 'react'
 
 export default function Transaction() {
   const [amount,setAmount] = useState('');
   const [type,setType] = useState('Expense');
   const [description,setDescription] = useState('')
   const [category,setCategory] = useState('Housing')
+  const [userTransaction,setUserTransaction] = useState([]);
 
-  const {currentCustomer,addUserTransaction,getTranscation} = useAuth();
+  const {currentCustomer,addUserTransaction,transaction} = useAuth();
 
   async function handleAddTransaction(e){
     e.preventDefault();
       console.log(currentCustomer)
 
 
- const addNewTransaction = {
+const addNewTransaction = {
   'userId': currentCustomer.userId,
   'TransactionAmount':amount,
   'TransactionType':type,
@@ -37,7 +38,23 @@ export default function Transaction() {
   setCategory('');
   setDescription('');
   }
+
+  const BASE_URL = "http://localhost:5001";
+
+
+  //Initial Loading get Users Transactions
   
+    useEffect(function(){
+      async function getUserTransaction(){
+         const res = await fetch(`${BASE_URL}/transactions/?userId=${currentCustomer.userId}`)
+         const data = await res.json();
+         setUserTransaction(data);
+      }
+      getUserTransaction();
+
+      return cleanup => ''
+    },[transaction])
+
 
 
   return (
@@ -141,14 +158,14 @@ export default function Transaction() {
                   </tr>
                 </thead>
                 <tbody>
-                  {getTranscation.map((tran)=>
+                  { userTransaction.map((tran)=>
                   <tr key={tran.id}>
                     <td>
                       <div className={styles.descCell}>
                         <div className={styles.avatarBag}>🛍️</div>
                         <div>
                           <div className={styles.txName}>{tran.TransactionDescription}</div>
-                          <div className={styles.txDate}>{tran.lastupdatedAt}</div>
+                          <div className={styles.txDate}>{new Date(tran.lastupdatedAt).toLocaleDateString({year:'numeric',month: '2-digit', day: '2-digit' })}</div>
                         </div>
                       </div>
                     </td>
@@ -164,7 +181,7 @@ export default function Transaction() {
 
               {/* Table Footer / Pagination */}
               <div className={styles.tableFooter}>
-                <span>Showing 1 to 2 of ${getTransaction.length} entries</span>
+                <span>{`Showing 1 to 2 of ${userTransaction.length || 0} entries`}</span>
                 <div className={styles.pagination}>
                   <button className={styles.pagArrow} disabled>&lt;</button>
                   <button className={`${styles.pagNum} ${styles.pagActive}`}>1</button>

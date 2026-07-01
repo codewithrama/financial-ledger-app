@@ -10,6 +10,61 @@
       "lastupdatedAt": "2026-06-29T08:56:21.463Z",
       "active": true,
       "id": "mI0ktd7VChg"
+    },
+    {
+      "userId": "Led-f420",
+      "TransactionAmount": "800",
+      "TransactionType": "Expense",
+      "TransactionCategory": "Dining",
+      "TransactionDescription": "",
+      "createdAt": "2026-07-01T07:44:36.915Z",
+      "lastupdatedAt": "2026-07-01T07:44:36.915Z",
+      "active": true,
+      "id": "pv872sH-zJU"
+    },
+    {
+      "userId": "Led-f420",
+      "TransactionAmount": "600",
+      "TransactionType": "Income",
+      "TransactionCategory": "Salary",
+      "TransactionDescription": "",
+      "createdAt": "2026-07-01T07:45:44.732Z",
+      "lastupdatedAt": "2026-07-01T07:45:44.732Z",
+      "active": true,
+      "id": "JBjJxq7QdZ8"
+    },
+    {
+      "userId": "Led-f420",
+      "TransactionAmount": "600",
+      "TransactionType": "Income",
+      "TransactionCategory": "Salary",
+      "TransactionDescription": "salary come",
+      "createdAt": "2026-07-01T10:07:46.105Z",
+      "lastupdatedAt": "2026-07-01T10:07:46.105Z",
+      "active": true,
+      "id": "smQeexx4xFo"
+    },
+    {
+      "userId": "Led-f420",
+      "TransactionAmount": "600",
+      "TransactionType": "Income",
+      "TransactionCategory": "Salary",
+      "TransactionDescription": "hi",
+      "createdAt": "2026-07-01T10:09:12.514Z",
+      "lastupdatedAt": "2026-07-01T10:09:12.514Z",
+      "active": true,
+      "id": "rvy9IaqdfOE"
+    },
+    {
+      "userId": "Led-f420",
+      "TransactionAmount": "123.90",
+      "TransactionType": "Income",
+      "TransactionCategory": "Housing",
+      "TransactionDescription": "ert\n",
+      "createdAt": "2026-07-01T10:30:40.642Z",
+      "lastupdatedAt": "2026-07-01T10:30:40.642Z",
+      "active": true,
+      "id": "b1n7pTzKkLc"
     }
   ],
   "customers": [

@@ -28,6 +28,8 @@ export default function AuthContextProvider({ children }) {
     return () => console.log("component unmounts");
   }, []);
 
+
+
   //Signup flow
   async function addUser(newCustomer) {
     //preventing duplicate signUp
@@ -118,11 +120,8 @@ export default function AuthContextProvider({ children }) {
       throw new Error(error.message);
     }
   }
-  //get Transaction flow
 
-  const getTranscation = transaction.filter((trans)=> trans.userId === currentCustomer.userId)
 
-  
 
   return (
     <AuthContext.Provider
@@ -134,7 +133,7 @@ export default function AuthContextProvider({ children }) {
         currentCustomer,
         loginUser,
         addUserTransaction,
-        getTranscation,
+        transaction,
       }}
     >
       {children}
