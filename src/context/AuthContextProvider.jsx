@@ -2,10 +2,12 @@ import { createContext, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 const AuthContext = createContext();
 
-export default function AuthContextProvider({ children }) {
+ function AuthContextProvider({ children }) {
   const [customers, setCustomers] = useState([]);
   const [transaction,setTransaction] = useState([]);
   const [currentCustomer, setCurrentCustomer] = useState(null);
+  const [userTransaction,setUserTransaction] = useState([]);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -25,7 +27,7 @@ export default function AuthContextProvider({ children }) {
     }
     getUsers();
 
-    return () => console.log("component unmounts");
+    return () => setCustomers('')
   }, []);
 
 
@@ -121,6 +123,22 @@ export default function AuthContextProvider({ children }) {
     }
   }
 
+    //Initial Loading get Users Transactions
+    
+    async function getUserTransaction(){
+      try{
+           const res = await fetch(`${BASE_URL}/transactions/?userId=${currentCustomer.userId}`)
+           if(!res.ok) throw new Error('Api failed to fetch !')
+           const data = await res.json();
+           setUserTransaction(data);
+      }catch(error){
+        toast.error(error.message)
+      }
+     
+    }
+      
+  
+
 
 
   return (
@@ -133,12 +151,15 @@ export default function AuthContextProvider({ children }) {
         currentCustomer,
         loginUser,
         addUserTransaction,
+        getUserTransaction,
         transaction,
+        userTransaction,
       }}
     >
       {children}
     </AuthContext.Provider>
   );
-}
 
-export { AuthContextProvider, AuthContext };
+};
+
+export { AuthContextProvider, AuthContext}

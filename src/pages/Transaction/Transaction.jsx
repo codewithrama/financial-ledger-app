@@ -9,9 +9,8 @@ export default function Transaction() {
   const [type,setType] = useState('Expense');
   const [description,setDescription] = useState('')
   const [category,setCategory] = useState('Housing')
-  const [userTransaction,setUserTransaction] = useState([]);
 
-  const {currentCustomer,addUserTransaction,transaction} = useAuth();
+  const {currentCustomer,addUserTransaction,userTransaction,getUserTransaction,transaction} = useAuth();
 
   async function handleAddTransaction(e){
     e.preventDefault();
@@ -42,19 +41,11 @@ const addNewTransaction = {
   const BASE_URL = "http://localhost:5001";
 
 
-  //Initial Loading get Users Transactions
-  
-    useEffect(function(){
-      async function getUserTransaction(){
-         const res = await fetch(`${BASE_URL}/transactions/?userId=${currentCustomer.userId}`)
-         const data = await res.json();
-         setUserTransaction(data);
-      }
-      getUserTransaction();
+useEffect(function(){
 
-      return cleanup => ''
-    },[transaction])
+  getUserTransaction()
 
+},[transaction])
 
 
   return (

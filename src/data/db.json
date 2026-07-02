@@ -65,6 +65,17 @@
       "lastupdatedAt": "2026-07-01T10:30:40.642Z",
       "active": true,
       "id": "b1n7pTzKkLc"
+    },
+    {
+      "userId": "Led-f420",
+      "TransactionAmount": "6000",
+      "TransactionType": "Income",
+      "TransactionCategory": "Salary",
+      "TransactionDescription": "hi",
+      "createdAt": "2026-07-02T09:18:22.348Z",
+      "lastupdatedAt": "2026-07-02T09:18:22.348Z",
+      "active": true,
+      "id": "3HspKwJ1yCM"
     }
   ],
   "customers": [

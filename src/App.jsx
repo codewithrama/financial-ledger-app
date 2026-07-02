@@ -6,7 +6,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Transaction from "./pages/Transaction/Transaction";
 import Insights from "./pages/insights/Insights";
-import AuthContextProvider from "./context/AuthContextProvider";
+import {AuthContextProvider} from "./context/AuthContextProvider";
 import { ToastContainer, toast } from "react-toastify";
 
 export default function App() {
