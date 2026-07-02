@@ -1,55 +1,72 @@
 import Layout from "../../components/Layout";
 import styles from "./Transaction.module.css";
-import { FilterIcon, CalendarDays, PlusCircle, DownloadIcon } from "lucide-react";
-import useAuth from '../../hooks/useAuth'
-import {useState,useEffect} from 'react'
+import {
+  FilterIcon,
+  CalendarDays,
+  PlusCircle,
+  DownloadIcon,
+} from "lucide-react";
+import useAuth from "../../hooks/useAuth";
+import { useState, useEffect } from "react";
 
 export default function Transaction() {
-  const [amount,setAmount] = useState('');
-  const [type,setType] = useState('Expense');
-  const [description,setDescription] = useState('')
-  const [category,setCategory] = useState('Housing')
+  const [amount, setAmount] = useState("");
+  const [type, setType] = useState("Expense");
+  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("Housing");
 
-  const {currentCustomer,addUserTransaction,userTransaction,getUserTransaction,transaction} = useAuth();
+  const {
+    currentCustomer,
+    addUserTransaction,
+    userTransaction,
+    getUserTransaction,
+    transaction,
+  } = useAuth();
 
-  async function handleAddTransaction(e){
+  const avatarMap = {
+    Housing: "🏚️",
+    Grocery: "🛍️",
+    Salary: "💵",
+    Dining: "🛎️",
+  };
+
+  console.log(avatarMap[category]);
+
+  async function handleAddTransaction(e) {
     e.preventDefault();
-      console.log(currentCustomer)
+    console.log(currentCustomer);
 
+    const addNewTransaction = {
+      userId: currentCustomer.userId,
+      TransactionAmount: amount,
+      TransactionType: type,
+      TransactionCategory: category,
+      TransactionDescription: description,
+      createdAt: new Date(),
+      lastupdatedAt: new Date(),
+      active: true,
+    };
+    await addUserTransaction(addNewTransaction);
 
-const addNewTransaction = {
-  'userId': currentCustomer.userId,
-  'TransactionAmount':amount,
-  'TransactionType':type,
-  'TransactionCategory':category,
-  'TransactionDescription':description,
-  'createdAt':  new Date(),
-  'lastupdatedAt':new Date(),
-  'active' : true
-  }
-
-  await addUserTransaction(addNewTransaction);
-
-
-  //Resetting states
-  setAmount('');
-  setType('');
-  setCategory('');
-  setDescription('');
+    //Resetting states
+    setAmount("");
+    setType("");
+    setCategory("");
+    setDescription("");
   }
 
   const BASE_URL = "http://localhost:5001";
 
-
-useEffect(function(){
-
-  getUserTransaction()
-
-},[transaction])
-
+  useEffect(
+    function () {
+      getUserTransaction();
+    },
+    [getUserTransaction, transaction],
+  );
 
   return (
-    <Layout>dashboard
+    <Layout>
+      dashboard
       <div className={styles.container}>
         {/* Header Section */}
         <div className={styles.headingSection}>
@@ -65,19 +82,31 @@ useEffect(function(){
             <h3 className={styles.cardTitle}>
               <PlusCircle size={20} className={styles.iconPurple} /> New Entry
             </h3>
-            <form className={styles.addTransactionForm} onSubmit={handleAddTransaction}>
+            <form
+              className={styles.addTransactionForm}
+              onSubmit={handleAddTransaction}
+            >
               <div className={styles.formGroup}>
                 <label>AMOUNT</label>
                 <div className={styles.amountInputWrapper}>
                   <span>$</span>
-                  <input type="number"  value={amount} onChange ={(e)=>setAmount(e.target.value)}step="0.01"  placeholder = '0.00'/>
+                  <input
+                    type="number"
+                    value={amount}
+                    onChange={(e) => setAmount(e.target.value)}
+                    step="0.01"
+                    placeholder="0.00"
+                  />
                 </div>
               </div>
 
               <div className={styles.formRow}>
                 <div className={styles.formGroup}>
                   <label>TYPE</label>
-                  <select value={type} onChange={(e)=> setType(e.target.value)}>
+                  <select
+                    value={type}
+                    onChange={(e) => setType(e.target.value)}
+                  >
                     <option value="Expense">Expense</option>
                     <option value="Income">Income</option>
                   </select>
@@ -85,7 +114,10 @@ useEffect(function(){
 
                 <div className={styles.formGroup}>
                   <label>CATEGORY</label>
-                  <select value ={category} onChange ={(e)=> setCategory(e.target.value)}>
+                  <select
+                    value={category}
+                    onChange={(e) => setCategory(e.target.value)}
+                  >
                     <option value="Housing">Housing</option>
                     <option value="Grocery">Grocery</option>
                     <option value="Salary">Salary</option>
@@ -96,7 +128,12 @@ useEffect(function(){
 
               <div className={styles.formGroup}>
                 <label>DESCRIPTION</label>
-                <textarea placeholder="What was this for?" rows={3} value={description} onChange ={(e)=>setDescription(e.target.value)} />
+                <textarea
+                  placeholder="What was this for?"
+                  rows={3}
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                />
               </div>
 
               <button type="submit" className={styles.submitBtn}>
@@ -118,18 +155,16 @@ useEffect(function(){
                 </select>
                 <select className={styles.toolbarSelect}>
                   <option>All Categories</option>
-                   <option>Food</option>
-                   <option>Billing and utilities</option>
-                   <option>Travelling</option>
-
-
+                  <option>Food</option>
+                  <option>Billing and utilities</option>
+                  <option>Travelling</option>
                 </select>
               </div>
 
               <div className={styles.actionGroup}>
                 <div className={styles.datePicker}>
-                 <input type="date" className={styles.dateInput} />
-                <CalendarDays size={16} className={styles.calendarIcon} />
+                  <input type="date" className={styles.dateInput} />
+                  <CalendarDays size={16} className={styles.calendarIcon} />
                 </div>
                 <button className={styles.iconBtn}>
                   <DownloadIcon size={16} />
@@ -149,34 +184,57 @@ useEffect(function(){
                   </tr>
                 </thead>
                 <tbody>
-                  { userTransaction.map((tran)=>
-                  <tr key={tran.id}>
-                    <td>
-                      <div className={styles.descCell}>
-                        <div className={styles.avatarBag}>🛍️</div>
-                        <div>
-                          <div className={styles.txName}>{tran.TransactionDescription}</div>
-                          <div className={styles.txDate}>{new Date(tran.lastupdatedAt).toLocaleDateString({year:'numeric',month: '2-digit', day: '2-digit' })}</div>
+                  {userTransaction.map((tran) => (
+                    <tr key={tran.id}>
+                      <td>
+                        <div className={styles.descCell}>
+                          <div className={styles.avatarBag}>
+                            {avatarMap[tran.TransactionCategory]}
+                          </div>
+                          <div>
+                            <div className={styles.txName}>
+                              {tran.TransactionDescription}
+                            </div>
+                            <div className={styles.txDate}>
+                              {new Date(tran.lastupdatedAt).toLocaleDateString({
+                                year: "numeric",
+                                month: "2-digit",
+                                day: "2-digit",
+                              })}
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    </td>
-                    <td>
-                      <span className={`${styles.badge} ${styles.badgeGrocery}`}>${tran.TransactionCategory}</span>
-                    </td>
-                    <td className={styles.typeText}>{tran.type}</td>
-                    <td className={`${styles.amountText} ${styles.negative}`}>{tran.TransactionAmount}</td>
-                  </tr>
-                  )}
+                      </td>
+                      <td>
+                        <span
+                          className={`${styles.badge} ${styles.badgeGrocery}`}
+                        >
+                          ${tran.TransactionCategory}
+                        </span>
+                      </td>
+                      <td className={styles.typeText}>{tran.type}</td>
+                      <td className={`${styles.amountText} ${styles.negative}`}>
+                        {tran.TransactionAmount}
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
 
               {/* Table Footer / Pagination */}
               <div className={styles.tableFooter}>
+                <span>{`Showing 0 out of ${userTransaction.length} entries`}</span>
                 <span>{`Showing 1 to 2 of ${userTransaction.length || 0} entries`}</span>
                 <div className={styles.pagination}>
-                  <button className={styles.pagArrow} disabled>&lt;</button>
-                  <button className={`${styles.pagNum} ${styles.pagActive}`}>1</button>
-                  <button className={styles.pagArrow} disabled>&gt;</button>
+                  <button className={styles.pagArrow} disabled>
+                    &lt;
+                  </button>
+                  <button className={`${styles.pagNum} ${styles.pagActive}`}>
+                    1
+                  </button>
+                  <button className={styles.pagArrow} disabled>
+                    &gt;
+                  </button>
                 </div>
               </div>
             </div>
@@ -203,7 +261,6 @@ useEffect(function(){
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </div>

@@ -2,11 +2,11 @@ import { createContext, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 const AuthContext = createContext();
 
- function AuthContextProvider({ children }) {
+function AuthContextProvider({ children }) {
   const [customers, setCustomers] = useState([]);
-  const [transaction,setTransaction] = useState([]);
+  const [transaction, setTransaction] = useState([]);
   const [currentCustomer, setCurrentCustomer] = useState(null);
-  const [userTransaction,setUserTransaction] = useState([]);
+  const [userTransaction, setUserTransaction] = useState([]);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -27,10 +27,8 @@ const AuthContext = createContext();
     }
     getUsers();
 
-    return () => setCustomers('')
+    return () => setCustomers("");
   }, []);
-
-
 
   //Signup flow
   async function addUser(newCustomer) {
@@ -58,7 +56,7 @@ const AuthContext = createContext();
       setCurrentCustomer(res);
     } catch (error) {
       toast.error(error.message);
-      return false
+      return false;
     }
   }
 
@@ -115,31 +113,27 @@ const AuthContext = createContext();
         body: JSON.stringify(transaction),
       });
       const data = await res.json();
-      setTransaction((prev)=> [...prev,data])
-      toast.success('record added successfully')
-     
+      setTransaction((prev) => [...prev, data]);
+      toast.success("record added successfully");
     } catch (error) {
       throw new Error(error.message);
     }
   }
 
-    //Initial Loading get Users Transactions
-    
-    async function getUserTransaction(){
-      try{
-           const res = await fetch(`${BASE_URL}/transactions/?userId=${currentCustomer.userId}`)
-           if(!res.ok) throw new Error('Api failed to fetch !')
-           const data = await res.json();
-           setUserTransaction(data);
-      }catch(error){
-        toast.error(error.message)
-      }
-     
+  //Initial Loading get Users Transactions
+
+  async function getUserTransaction() {
+    try {
+      const res = await fetch(
+        `${BASE_URL}/transactions/?userId=${currentCustomer.userId}`,
+      );
+      if (!res.ok) throw new Error("Api failed to fetch !");
+      const data = await res.json();
+      setUserTransaction(data);
+    } catch (error) {
+      toast.error(error.message);
     }
-      
-  
-
-
+  }
 
   return (
     <AuthContext.Provider
@@ -159,7 +153,6 @@ const AuthContext = createContext();
       {children}
     </AuthContext.Provider>
   );
+}
 
-};
-
-export { AuthContextProvider, AuthContext}
+export { AuthContextProvider, AuthContext };
