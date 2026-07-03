@@ -30,7 +30,7 @@ export default function Transaction() {
     Dining: "🛎️",
   };
 
-  console.log(avatarMap[category]);
+  console.log("hi");
 
   async function handleAddTransaction(e) {
     e.preventDefault();
@@ -48,6 +48,10 @@ export default function Transaction() {
     };
     await addUserTransaction(addNewTransaction);
 
+    //get Transaction
+
+    await getUserTransaction();
+
     //Resetting states
     setAmount("");
     setType("");
@@ -57,12 +61,9 @@ export default function Transaction() {
 
   const BASE_URL = "http://localhost:5001";
 
-  useEffect(
-    function () {
-      getUserTransaction();
-    },
-    [getUserTransaction, transaction],
-  );
+  useEffect(function () {
+    getUserTransaction();
+  }, []);
 
   return (
     <Layout>
