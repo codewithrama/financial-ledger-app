@@ -67,7 +67,6 @@ export default function Transaction() {
 
   return (
     <Layout>
-      dashboard
       <div className={styles.container}>
         {/* Header Section */}
         <div className={styles.headingSection}>
@@ -208,14 +207,18 @@ export default function Transaction() {
                       </td>
                       <td>
                         <span
-                          className={`${styles.badge} ${styles.badgeGrocery}`}
+                          className={`${styles.badge} ${styles['badge' + tran.TransactionCategory] || styles.badgeDefault}`}
                         >
-                          ${tran.TransactionCategory}
+                          {tran.TransactionCategory}
                         </span>
                       </td>
-                      <td className={styles.typeText}>{tran.type}</td>
-                      <td className={`${styles.amountText} ${styles.negative}`}>
-                        {tran.TransactionAmount}
+                      <td className={styles.typeText}>
+                        <span className={`${styles.typeBadge} ${tran.TransactionType === 'Expense' ? styles.typeExpense : styles.typeIncome}`}>
+                          {tran.TransactionType}
+                        </span>
+                      </td>
+                      <td className={`${styles.amountText} ${tran.TransactionType === 'Expense' ? styles.negative : styles.positive}`}>
+                        {tran.TransactionType === 'Expense' ? '-' : '+'}${parseFloat(tran.TransactionAmount).toFixed(2)}
                       </td>
                     </tr>
                   ))}

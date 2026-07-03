@@ -16,10 +16,10 @@
   background-color: var(--bg-main);
   font-family: system-ui, -apple-system, sans-serif;
   
-  /* Add these to freeze the main layout height */
-  height: 100vh;
+  height: 100%; /* Changed from 100vh to fit layout */
   box-sizing: border-box;
-  overflow: hidden; 
+  overflow-y: auto; /* Allow vertical scrolling */
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
 }
@@ -71,8 +71,8 @@
 /* Grid Layout */
 .contentGrid {
   display: grid;
-  grid-template-columns: 340px 1fr;
-  gap: 2rem;
+  grid-template-columns: 320px 1fr; /* slightly narrower form */
+  gap: 3rem; /* increased gap to prevent looking messy */
   align-items: start;
   
   /* Add these to make the content area scrollable, not the whole window */
@@ -85,8 +85,9 @@
   background: #ffffff;
   border-radius: 24px;
   padding: 2rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.01);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
   border: 1px solid var(--border-color);
+  min-width: 0; /* Fixes grid overflow */
 }
 
 .cardTitle {
@@ -163,6 +164,7 @@
   color: var(--text-dark);
   outline: none;
   width: 100%;
+  box-sizing: border-box; /* ensure padding doesn't overflow grid */
 }
 
 .addTransactionForm textarea {
@@ -193,6 +195,7 @@
   gap: 1.5rem;
   height: 100%;
   min-height: 0;
+  min-width: 0; /* Fixes grid overflow */
 }
 
 /* Toolbar Controls */
@@ -200,6 +203,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap; /* allow wrapping on small screens */
+  gap: 1rem;
 }
 
 .filterGroup, .actionGroup {
@@ -290,6 +295,7 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.01);
   flex: 1;
   overflow-y: auto;
+  overflow-x: auto;
   min-height: 0;
 }
 
@@ -306,6 +312,10 @@
   color: var(--text-muted);
   letter-spacing: 0.05em;
   border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 10;
 }
 
 .transactionTable td {
@@ -351,15 +361,43 @@
   letter-spacing: 0.02em;
 }
 
+.badgeHousing {
+  background-color: #f3e8ff;
+  color: #7e22ce;
+}
 .badgeGrocery {
   background-color: #fde8e8;
   color: #e11d48;
 }
-
 .badgeSalary {
   background-color: #dcfce7;
   color: #16a34a;
 }
+.badgeDining {
+  background-color: #fef3c7;
+  color: #d97706;
+}
+.badgeDefault {
+  background-color: #f1f5f9;
+  color: #475569;
+}
+
+.typeBadge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  letter-spacing: 0.02em;
+}
+.typeExpense {
+  background-color: var(--red-bg);
+  color: var(--red-text);
+}
+.typeIncome {
+  background-color: var(--green-bg);
+  color: var(--green-text);
+}
+
 
 .typeText {
   color: var(--text-muted);
@@ -481,4 +519,24 @@
   color: #dc2626;
   font-weight: 500;
   margin-left: 0.25rem;
+}
+
+@media (max-width: 1400px) {
+  .contentGrid {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    flex: none;
+    height: auto;
+    align-items: stretch; /* Ensures form and grid take full width */
+  }
+  .rightSide {
+    height: auto;
+    min-height: auto;
+    flex: none;
+  }
+  .tableCard {
+    flex: none;
+    overflow-y: visible;
+  }
 }
