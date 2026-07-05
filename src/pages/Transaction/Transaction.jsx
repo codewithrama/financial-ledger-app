@@ -8,19 +8,31 @@ import {
 } from "lucide-react";
 import useAuth from "../../hooks/useAuth";
 import { useState, useEffect } from "react";
+import formatDate from "../../utilities/utilities";
 
 export default function Transaction() {
   const [amount, setAmount] = useState("");
   const [type, setType] = useState("Expense");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("Housing");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [filterObj, setFilterObj] = useState({
+    type: "All",
+    category: "All",
+    date: "",
+  });
 
+  function handleFilterChange(e) {
+    const { value, name } = e.target;
+    setFilterObj((prev) => ({ ...prev, [name]: value }));
+  }
+
+  console.log(filterObj);
   const {
     currentCustomer,
     addUserTransaction,
     userTransaction,
     getUserTransaction,
-    transaction,
   } = useAuth();
 
   const avatarMap = {
@@ -29,8 +41,6 @@ export default function Transaction() {
     Salary: "💵",
     Dining: "🛎️",
   };
-
-  console.log("hi");
 
   async function handleAddTransaction(e) {
     e.preventDefault();
@@ -59,11 +69,58 @@ export default function Transaction() {
     setDescription("");
   }
 
-  const BASE_URL = "http://localhost:5001";
-
   useEffect(function () {
     getUserTransaction();
   }, []);
+
+  //filter method
+
+  const filterUserTransactions = userTransaction.filter((user) => {
+    const filterType =
+      filterObj.type === "All" || user.TransactionType === filterObj.type;
+
+    const filterCategories =
+      filterObj.category === "All" ||
+      user.TransactionCategory === filterObj.category;
+
+    const filterDate =
+      filterObj.date === "" ||
+      formatDate(user.lastupdatedAt) === formatDate(filterObj.date);
+
+    return filterType && filterCategories && filterDate;
+  });
+
+  //For learnning reduce method
+
+  // const filterCategoriesByReduce = userTransaction.reduce((acc, user) => {
+  //   const filterType =
+  //     filterObj.type === "All" || user.TransactionType === filterObj.type;
+
+  //   const filterCategories =
+  //     filterObj.category === "All" ||
+  //     user.TransactionCategory === filterObj.category;
+
+  //   const filterDate =
+  //     filterObj.date === "" ||
+  //     formatDate(user.lastupdatedAt) === formatDate(filterObj.date);
+
+  //   if (filterType && filterCategories && filterDate) {
+  //     acc.push(user);
+  //   }
+
+  //   return acc;
+  // }, []);
+
+  const PAGE_PER_ITEMS = window.innerWidth <= 1400 ? 5 : 8;
+
+  const totalPages = Math.ceil(filterUserTransactions.length / PAGE_PER_ITEMS);
+
+  //step 3 : slicing
+
+  const endIndex = currentPage * PAGE_PER_ITEMS;
+  const startIndex = endIndex - PAGE_PER_ITEMS;
+
+  const visibleTransaction = filterUserTransactions.slice(startIndex, endIndex);
 
   return (
     <Layout>
@@ -122,6 +179,7 @@ export default function Transaction() {
                     <option value="Grocery">Grocery</option>
                     <option value="Salary">Salary</option>
                     <option value="Dining">Dining</option>
+                    <option value="Travelling">Travelling</option>
                   </select>
                 </div>
               </div>
@@ -150,20 +208,40 @@ export default function Transaction() {
                 <button className={styles.filterBtn}>
                   <FilterIcon size={16} /> FILTER BY
                 </button>
-                <select className={styles.toolbarSelect}>
-                  <option>All Types</option>
+                <select
+                  className={styles.toolbarSelect}
+                  name="type"
+                  onChange={handleFilterChange}
+                  value={filterObj.type}
+                >
+                  <option value="All">All Types</option>
+                  <option value="Expense">Expense</option>
+                  <option value="Income">Income</option>
                 </select>
-                <select className={styles.toolbarSelect}>
-                  <option>All Categories</option>
-                  <option>Food</option>
-                  <option>Billing and utilities</option>
-                  <option>Travelling</option>
+                <select
+                  className={styles.toolbarSelect}
+                  name="category"
+                  onChange={handleFilterChange}
+                  value={filterObj.category}
+                >
+                  <option value="All">All Categories</option>
+                  <option value="Housing">Housing</option>
+                  <option value="Grocery">Grocery</option>
+                  <option value="Salary">Salary</option>
+                  <option value="Dining">Dining</option>
+                  <option value="Travelling">Travelling</option>
                 </select>
               </div>
 
               <div className={styles.actionGroup}>
                 <div className={styles.datePicker}>
-                  <input type="date" className={styles.dateInput} />
+                  <input
+                    type="date"
+                    className={styles.dateInput}
+                    name="date"
+                    onChange={handleFilterChange}
+                    value={filterObj.date}
+                  />
                   <CalendarDays size={16} className={styles.calendarIcon} />
                 </div>
                 <button className={styles.iconBtn}>
@@ -184,7 +262,7 @@ export default function Transaction() {
                   </tr>
                 </thead>
                 <tbody>
-                  {userTransaction.map((tran) => (
+                  {visibleTransaction.map((tran) => (
                     <tr key={tran.id}>
                       <td>
                         <div className={styles.descCell}>
@@ -196,29 +274,30 @@ export default function Transaction() {
                               {tran.TransactionDescription}
                             </div>
                             <div className={styles.txDate}>
-                              {new Date(tran.lastupdatedAt).toLocaleDateString({
-                                year: "numeric",
-                                month: "2-digit",
-                                day: "2-digit",
-                              })}
+                              {formatDate(tran.lastupdatedAt)}
                             </div>
                           </div>
                         </div>
                       </td>
                       <td>
                         <span
-                          className={`${styles.badge} ${styles['badge' + tran.TransactionCategory] || styles.badgeDefault}`}
+                          className={`${styles.badge} ${styles["badge" + tran.TransactionCategory] || styles.badgeDefault}`}
                         >
                           {tran.TransactionCategory}
                         </span>
                       </td>
                       <td className={styles.typeText}>
-                        <span className={`${styles.typeBadge} ${tran.TransactionType === 'Expense' ? styles.typeExpense : styles.typeIncome}`}>
+                        <span
+                          className={`${styles.typeBadge} ${tran.TransactionType === "Expense" ? styles.typeExpense : styles.typeIncome}`}
+                        >
                           {tran.TransactionType}
                         </span>
                       </td>
-                      <td className={`${styles.amountText} ${tran.TransactionType === 'Expense' ? styles.negative : styles.positive}`}>
-                        {tran.TransactionType === 'Expense' ? '-' : '+'}${parseFloat(tran.TransactionAmount).toFixed(2)}
+                      <td
+                        className={`${styles.amountText} ${tran.TransactionType === "Expense" ? styles.negative : styles.positive}`}
+                      >
+                        {tran.TransactionType === "Expense" ? "-" : "+"}$
+                        {parseFloat(tran.TransactionAmount).toFixed(2)}
                       </td>
                     </tr>
                   ))}
@@ -227,16 +306,24 @@ export default function Transaction() {
 
               {/* Table Footer / Pagination */}
               <div className={styles.tableFooter}>
-                <span>{`Showing 0 out of ${userTransaction.length} entries`}</span>
-                <span>{`Showing 1 to 2 of ${userTransaction.length || 0} entries`}</span>
+                <span>{`Showing ${visibleTransaction.length} out of ${filterUserTransactions.length} entries`}</span>
+                <span>{`Showing ${startIndex} to ${Math.min(endIndex, filterUserTransactions.length)} of ${userTransaction.length || 0} entries`}</span>
                 <div className={styles.pagination}>
-                  <button className={styles.pagArrow} disabled>
+                  <button
+                    className={styles.pagArrow}
+                    disabled={currentPage === 1}
+                    onClick={() => setCurrentPage((prev) => prev - 1)}
+                  >
                     &lt;
                   </button>
                   <button className={`${styles.pagNum} ${styles.pagActive}`}>
-                    1
+                    {currentPage}
                   </button>
-                  <button className={styles.pagArrow} disabled>
+                  <button
+                    className={styles.pagArrow}
+                    disabled={currentPage >= totalPages}
+                    onClick={() => setCurrentPage((prev) => prev + 1)}
+                  >
                     &gt;
                   </button>
                 </div>
@@ -244,7 +331,7 @@ export default function Transaction() {
             </div>
 
             {/* Micro KPI Cards Footer */}
-            <div className={styles.kpiRow}>
+            {/* <div className={styles.kpiRow}>
               <div className={styles.kpiCard}>
                 <div className={styles.kpiIconTrend}>📈</div>
                 <div className={styles.kpiContent}>
@@ -264,7 +351,7 @@ export default function Transaction() {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

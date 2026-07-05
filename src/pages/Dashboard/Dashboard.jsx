@@ -12,11 +12,23 @@ import {
 } from "lucide-react";
 import styles from "./Dashboard.module.css";
 import useAuth from "../../hooks/useAuth";
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
+import { useMemo } from "react";
 
 export default function Dashboard() {
-  const { currentCustomer } = useAuth();
+  const { currentCustomer, userTransaction } = useAuth();
   const navigate = useNavigate();
+
+  const recentTransactions = useMemo(
+    () =>
+      userTransaction
+        .sort((a, b) => new Date(b.lastupdatedAt) - new Date(a.lastupdatedAt))
+        .slice(0, 3),
+    [userTransaction],
+  );
+
+  console.log(recentTransactions);
+
   return (
     <Layout>
       <div>
@@ -31,7 +43,7 @@ export default function Dashboard() {
           </div>
 
           <div className={styles.addTransaction}>
-            <button onClick={()=> navigate('/transaction')}>
+            <button onClick={() => navigate("/transaction")}>
               <Plus /> Add Transaction
             </button>
           </div>
@@ -41,7 +53,6 @@ export default function Dashboard() {
           <div className={styles.walletCard}>
             <div className={styles.walletCardTop}>
               <PiggyBankIcon />
-              <span>$</span>
             </div>
             <div className={styles.walletAmount}>
               <h1>Monthly income</h1>
@@ -125,19 +136,12 @@ export default function Dashboard() {
             </thead>
 
             <tbody>
-              <tr>
-                <td>Apple Store Soho</td>
-                <td>2000</td>
-              </tr>
-              <tr>
-                <td>Stripe Payout</td>
-                <td>8500</td>
-              </tr>
-
-              <tr>
-                <td>Blue Hill Restaurent</td>
-                <td>-342</td>
-              </tr>
+              {recentTransactions.map((recent) => {
+                <tr key={recent.id}>
+                  <td>{recent.TransactionDescription}</td>
+                  <td>{recent.TransactionAmount}</td>
+                </tr>;
+              })}
             </tbody>
           </table>
         </div>
