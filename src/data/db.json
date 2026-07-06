@@ -120,6 +120,17 @@
       "lastupdatedAt": "2026-07-04T12:07:58.121Z",
       "active": true,
       "id": "5a2SwbzVzNU"
+    },
+    {
+      "userId": "Led-f420",
+      "TransactionAmount": "500",
+      "TransactionType": "Expense",
+      "TransactionCategory": "Grocery",
+      "TransactionDescription": "Badam,pista and grapes",
+      "createdAt": "2026-07-06T09:25:37.355Z",
+      "lastupdatedAt": "2026-07-06T09:25:37.355Z",
+      "active": true,
+      "id": "lxgNsxqRFVs"
     }
   ],
   "customers": [

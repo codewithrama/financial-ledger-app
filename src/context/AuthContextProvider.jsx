@@ -27,7 +27,6 @@ function AuthContextProvider({ children }) {
     }
     getUsers();
 
-    return () => setCustomers("");
   }, []);
 
   //Signup flow
@@ -134,6 +133,17 @@ function AuthContextProvider({ children }) {
       toast.error(error.message);
     }
   }
+
+  useEffect(function(){
+    if(!currentCustomer) return;
+    getUserTransaction()
+
+  },[currentCustomer])
+
+
+
+
+
 
   return (
     <AuthContext.Provider

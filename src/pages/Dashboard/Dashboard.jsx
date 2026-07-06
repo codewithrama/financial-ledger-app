@@ -13,21 +13,17 @@ import {
 import styles from "./Dashboard.module.css";
 import useAuth from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
-import { useMemo } from "react";
+import { useEffect } from "react";
 
 export default function Dashboard() {
-  const { currentCustomer, userTransaction } = useAuth();
+  const { currentCustomer, userTransaction,getUserTransaction } = useAuth();
   const navigate = useNavigate();
 
-  const recentTransactions = useMemo(
-    () =>
-      userTransaction
-        .sort((a, b) => new Date(b.lastupdatedAt) - new Date(a.lastupdatedAt))
-        .slice(0, 3),
-    [userTransaction],
-  );
 
-  console.log(recentTransactions);
+  const recentTransactions = userTransaction.sort((a, b) => new Date(b.lastupdatedAt) - new Date(a.lastupdatedAt)).slice(0, 3)
+  console.log('useTransaction',userTransaction)
+  
+console.log('recentTransactions',recentTransactions)
 
   return (
     <Layout>
@@ -136,12 +132,12 @@ export default function Dashboard() {
             </thead>
 
             <tbody>
-              {recentTransactions.map((recent) => {
+              {recentTransactions.map((recent) => (
                 <tr key={recent.id}>
                   <td>{recent.TransactionDescription}</td>
                   <td>{recent.TransactionAmount}</td>
-                </tr>;
-              })}
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>

@@ -7,7 +7,7 @@ import {
   DownloadIcon,
 } from "lucide-react";
 import useAuth from "../../hooks/useAuth";
-import { useState, useEffect } from "react";
+import { useState, useLayoutEffect } from "react";
 import formatDate from "../../utilities/utilities";
 
 export default function Transaction() {
@@ -69,7 +69,7 @@ export default function Transaction() {
     setDescription("");
   }
 
-  useEffect(function () {
+  useLayoutEffect(function () {
     getUserTransaction();
   }, []);
 
