@@ -13,18 +13,33 @@ import {
 import styles from "./Dashboard.module.css";
 import useAuth from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { calculatePercentage } from "../../utilities/utilities";
 
 export default function Dashboard() {
-  const { currentCustomer, userTransaction,getUserTransaction } = useAuth();
+  const { currentCustomer, userTransaction } = useAuth();
   const navigate = useNavigate();
 
+  const recentTransactions = userTransaction
+    .sort((a, b) => new Date(b.lastupdatedAt) - new Date(a.lastupdatedAt))
+    .slice(0, 3);
 
-  const recentTransactions = userTransaction.sort((a, b) => new Date(b.lastupdatedAt) - new Date(a.lastupdatedAt)).slice(0, 3)
-  console.log('useTransaction',userTransaction)
-  
-console.log('recentTransactions',recentTransactions)
+  const totalExpense = userTransaction.reduce((acc, user) => {
+    if (user.TransactionType === "Expense") {
+      acc += Number(user.TransactionAmount);
+    }
 
+    return acc;
+  }, 0);
+
+  const totalAmount = userTransaction.reduce((acc, user) => {
+    if (user.TransactionType === "Income") {
+      acc += Number(user.TransactionAmount);
+    }
+
+    return acc;
+  }, 0);
+
+  console.log(totalAmount);
   return (
     <Layout>
       <div>
@@ -61,11 +76,11 @@ console.log('recentTransactions',recentTransactions)
             <h3>Remaining Balance</h3>
 
             <progress
-              value={currentCustomer.income}
-              max={currentCustomer.income}
+              value={totalAmount - totalExpense}
+              max={totalAmount || currentCustomer.income}
               className={styles.totalIncome}
             />
-            <p>100% Money Remaining</p>
+            <p>{`${calculatePercentage(totalAmount - totalExpense, totalAmount)} % Money Remaining`}</p>
           </div>
 
           <div className={styles.totalExpenses}>
@@ -73,10 +88,20 @@ console.log('recentTransactions',recentTransactions)
             <h3>Total expense</h3>
             <progress
               max={currentCustomer.income}
-              value={0}
+              value={totalExpense}
               className={styles.totalExpense}
             ></progress>{" "}
-            <p>Well , no expense</p>
+            <p>
+              {totalExpense
+                ? "Make sure your expense is worth"
+                : "well, no expense"}
+            </p>
+            <span>
+              {totalExpense +
+                "(" +
+                calculatePercentage(totalExpense, totalAmount) +
+                "%)"}
+            </span>
           </div>
         </div>
 
