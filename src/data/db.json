@@ -131,6 +131,17 @@
       "lastupdatedAt": "2026-07-06T09:25:37.355Z",
       "active": true,
       "id": "lxgNsxqRFVs"
+    },
+    {
+      "userId": "Led-f420",
+      "TransactionAmount": "",
+      "TransactionType": "Expense",
+      "TransactionCategory": "Housing",
+      "TransactionDescription": "",
+      "createdAt": "2026-07-07T02:29:18.334Z",
+      "lastupdatedAt": "2026-07-07T02:29:18.334Z",
+      "active": true,
+      "id": "3x8ckNcG3YM"
     }
   ],
   "customers": [

@@ -9,6 +9,7 @@ import {
 import useAuth from "../../hooks/useAuth";
 import { useState, useLayoutEffect } from "react";
 import formatDate from "../../utilities/utilities";
+import { toast } from "react-toastify";
 
 export default function Transaction() {
   const [amount, setAmount] = useState("");
@@ -44,6 +45,11 @@ export default function Transaction() {
 
   async function handleAddTransaction(e) {
     e.preventDefault();
+
+    if (!amount && !description) {
+      toast.error("Missing fields");
+      return;
+    }
     console.log(currentCustomer);
 
     const addNewTransaction = {
