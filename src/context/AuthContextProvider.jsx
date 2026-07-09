@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import { toast } from "react-toastify";
+import useLocalStorage from "../hooks/useLocalStorage";
 const AuthContext = createContext();
 
 function AuthContextProvider({ children }) {
@@ -7,6 +8,7 @@ function AuthContextProvider({ children }) {
   const [transaction, setTransaction] = useState([]);
   const [currentCustomer, setCurrentCustomer] = useState(null);
   const [userTransaction, setUserTransaction] = useState([]);
+  const [userId, setUserId] = useLocalStorage("userId", null);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -26,8 +28,17 @@ function AuthContextProvider({ children }) {
       setCustomers(data);
     }
     getUsers();
-
   }, []);
+
+  //get Current Customer Based on UserId :: browser refresh
+  useEffect(
+    function () {
+      if (customers.length < 0) return;
+      const matchedCustomer = customers.find((cus) => cus.userId === userId);
+      setCurrentCustomer(matchedCustomer);
+    },
+    [customers, userId],
+  );
 
   //Signup flow
   async function addUser(newCustomer) {
@@ -53,6 +64,7 @@ function AuthContextProvider({ children }) {
       const res = await data.json();
       setCustomers((prev) => [...prev, res]);
       setCurrentCustomer(res);
+      setUserId(res.userId);
     } catch (error) {
       toast.error(error.message);
       return false;
@@ -72,6 +84,7 @@ function AuthContextProvider({ children }) {
     if (loggingcustomer) {
       toast.success(`Welcome Back ${loggingcustomer.name}`);
       setCurrentCustomer(loggingcustomer);
+      setUserId(loggingcustomer.userId);
       return true;
     } else {
       toast.error("Invalid Credentials");
@@ -121,33 +134,58 @@ function AuthContextProvider({ children }) {
 
   //Initial Loading get Users Transactions
 
-  async function getUserTransaction() {
+  async function fetchTransactionsByUserId(userId, signal) {
+    const res = await fetch(`${BASE_URL}/transactions/?userId=${userId}`, {
+      signal,
+    });
+    if (!res.ok) throw new Error("Api failed to fetch !");
+    return res.json();
+  }
+
+  async function getUserTransaction(userID = userId) {
+    if (!userID) return;
+
     try {
-      const res = await fetch(
-        `${BASE_URL}/transactions/?userId=${currentCustomer.userId}`,
-      );
-      if (!res.ok) throw new Error("Api failed to fetch !");
-      const data = await res.json();
+      const data = await fetchTransactionsByUserId(userID);
       setUserTransaction(data);
     } catch (error) {
       toast.error(error.message);
     }
   }
 
-  useEffect(function(){
-    if(!currentCustomer) return;
-    getUserTransaction()
+  useEffect(
+    function () {
+      if (!currentCustomer?.userId) return;
 
-  },[currentCustomer])
+      const controller = new AbortController();
+      const userId = currentCustomer.userId;
 
+      async function loadUserTransactions() {
+        try {
+          const data = await fetchTransactionsByUserId(
+            userId,
+            controller.signal,
+          );
+          setUserTransaction(data);
+        } catch (error) {
+          if (controller.signal.aborted) return;
+          toast.error(error.message);
+        }
+      }
 
+      loadUserTransactions();
 
-
-
+      return function () {
+        controller.abort();
+      };
+    },
+    [currentCustomer],
+  );
 
   return (
     <AuthContext.Provider
       value={{
+        userId,
         formData,
         setFormData,
         addUser,

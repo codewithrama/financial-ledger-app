@@ -14,32 +14,63 @@ import styles from "./Dashboard.module.css";
 import useAuth from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { calculatePercentage } from "../../utilities/utilities";
+import Loader from "../../components/Loader";
 
 export default function Dashboard() {
   const { currentCustomer, userTransaction } = useAuth();
   const navigate = useNavigate();
 
+  if (!currentCustomer) return <Loader />;
+
   const recentTransactions = userTransaction
     .sort((a, b) => new Date(b.lastupdatedAt) - new Date(a.lastupdatedAt))
     .slice(0, 3);
 
-  const totalExpense = userTransaction.reduce((acc, user) => {
-    if (user.TransactionType === "Expense") {
-      acc += Number(user.TransactionAmount);
-    }
+  const breakDown = userTransaction.reduce(
+    (acc, user) => {
+      if (user.TransactionType === "Expense") {
+        acc.totalExpense = acc.totalExpense + Number(user.TransactionAmount);
+      }
+      if (user.TransactionType === "Income") {
+        acc.totalAmount = acc.totalAmount + Number(user.TransactionAmount);
+      }
 
-    return acc;
-  }, 0);
+      if (user.TransactionCategory === "Dining") {
+        acc.foodExpense = acc.foodExpense + Number(user.TransactionAmount);
+      }
 
-  const totalAmount = userTransaction.reduce((acc, user) => {
-    if (user.TransactionType === "Income") {
-      acc += Number(user.TransactionAmount);
-    }
+      if (user.TransactionCategory === "travelling") {
+        acc.travellingExpense =
+          acc.travellingExpense + Number(user.TransactionAmount);
+      }
 
-    return acc;
-  }, 0);
+      if (
+        !(user.TransactionCategory === "travelling") ||
+        !(user.TransactionCategory === "Dining")
+      ) {
+        acc.MiscExpense = acc.MiscExpense + Number(user.TransactionAmount);
+      }
+      return acc;
+    },
+    {
+      totalExpense: 0,
+      totalAmount: 0,
+      foodExpense: 0,
+      travellingExpense: 0,
+      MiscExpense: 0,
+    },
+  );
 
-  console.log(totalAmount);
+  console.log(breakDown);
+
+  const {
+    totalExpense,
+    totalAmount,
+    foodExpense,
+    travellingExpense,
+    MiscExpense,
+  } = breakDown;
+
   return (
     <Layout>
       <div>
@@ -112,8 +143,8 @@ export default function Dashboard() {
               <CookingPot /> Food
             </label>
             <progress
-              max={currentCustomer.income}
-              value={30}
+              max={totalAmount || currentCustomer.income}
+              value={foodExpense}
               className={styles.progressFood}
             />
           </div>
@@ -122,8 +153,8 @@ export default function Dashboard() {
               <Plane /> Travelling
             </label>
             <progress
-              max={currentCustomer.income}
-              value={20}
+              max={totalAmount || currentCustomer.income}
+              value={travellingExpense}
               className={styles.progressTravelling}
             />
           </div>
@@ -132,8 +163,8 @@ export default function Dashboard() {
               <Receipt /> Bills and Utilities
             </label>
             <progress
-              max={currentCustomer.income}
-              value={200}
+              max={totalAmount || currentCustomer.income}
+              value={MiscExpense}
               className={styles.progressRecipt}
             />
           </div>

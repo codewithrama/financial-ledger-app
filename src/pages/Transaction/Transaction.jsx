@@ -181,11 +181,16 @@ export default function Transaction() {
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
                   >
-                    <option value="Housing">Housing</option>
-                    <option value="Grocery">Grocery</option>
-                    <option value="Salary">Salary</option>
-                    <option value="Dining">Dining</option>
-                    <option value="Travelling">Travelling</option>
+                    {type === "Expense" ? (
+                      <>
+                        <option value="Housing">Housing</option>
+                        <option value="Grocery">Grocery</option>
+                        <option value="Dining">Dining</option>
+                        <option value="Travelling">Travelling</option>
+                      </>
+                    ) : (
+                      <option value="Salary">Salary</option>
+                    )}
                   </select>
                 </div>
               </div>

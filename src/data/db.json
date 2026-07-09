@@ -142,6 +142,28 @@
       "lastupdatedAt": "2026-07-07T02:29:18.334Z",
       "active": true,
       "id": "3x8ckNcG3YM"
+    },
+    {
+      "userId": "Led-f420",
+      "TransactionAmount": "600",
+      "TransactionType": "Income",
+      "TransactionCategory": "Dining",
+      "TransactionDescription": "this is for hotel",
+      "createdAt": "2026-07-09T02:02:08.674Z",
+      "lastupdatedAt": "2026-07-09T02:02:08.674Z",
+      "active": true,
+      "id": "qdzvC3V1b4E"
+    },
+    {
+      "userId": "Led-f420",
+      "TransactionAmount": "3500",
+      "TransactionType": "Expense",
+      "TransactionCategory": "Dining",
+      "TransactionDescription": "dinner date with nate",
+      "createdAt": "2026-07-09T02:14:29.399Z",
+      "lastupdatedAt": "2026-07-09T02:14:29.399Z",
+      "active": true,
+      "id": "5XZ0Daf8Cj8"
     }
   ],
   "customers": [
